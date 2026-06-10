@@ -1,75 +1,307 @@
-<!-- สไลด์หน้า 1: หน้าปกการนำเสนอ (Cover Slide) -->
-<div class="slide-page" style="justify-content: center; padding: clamp(20px, 4vw, 48px);">
-    <div
-        style="display: flex; flex-direction: row; align-items: center; gap: clamp(24px, 5vw, 60px); width: 100%; max-width: 1000px; flex-wrap: wrap; justify-content: center;">
+<!-- สไลด์หน้า 1: หน้าปกการนำเสนอ (Cover Slide) - Redesigned Premium Tech Version -->
+<div class="slide-page" style="justify-content: center; align-items: center; padding: clamp(16px, 4vw, 48px); position: relative; overflow: hidden;">
+
+    <!-- Styles for Premium Cover Slide -->
+    <style>
+        .cover-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: clamp(24px, 6vw, 80px);
+            width: 100%;
+            max-width: 1060px;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Ambient glowing background elements */
+        .cover-bg-glow {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(0, 163, 255, 0.08) 0%, transparent 70%);
+            top: -150px;
+            left: -150px;
+            pointer-events: none;
+            z-index: 0;
+            animation: pulse-glow 8s infinite alternate ease-in-out;
+        }
+        .cover-bg-glow-right {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+            bottom: -150px;
+            right: -150px;
+            pointer-events: none;
+            z-index: 0;
+            animation: pulse-glow 10s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.8; }
+            100% { transform: scale(1.15) translate(30px, 20px); opacity: 1; }
+        }
+
+        /* Left Content animations */
+        .cover-badge-premium {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 163, 255, 0.08);
+            border: 1px solid rgba(0, 163, 255, 0.25);
+            padding: 6px 14px;
+            border-radius: 30px;
+            margin-bottom: clamp(14px, 3.5vh, 24px);
+            box-shadow: 0 4px 15px rgba(0, 163, 255, 0.1);
+            animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .cover-title-premium {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5.2vw, 3.6rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: clamp(8px, 2.5vh, 16px);
+            color: #ffffff;
+            animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .cover-subtitle-premium {
+            font-size: clamp(0.92rem, 2.2vw, 1.25rem);
+            color: var(--color-text-muted);
+            margin-bottom: clamp(24px, 4.5vh, 36px);
+            line-height: 1.6;
+            font-weight: 400;
+            animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .cover-subtitle-premium::before {
+            content: '';
+            width: 16px;
+            height: 1.5px;
+            background: var(--color-accent);
+            display: inline-block;
+        }
+
+        /* Presenter Glass Cards */
+        .cover-info-grid-premium {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: clamp(16px, 3.5vh, 24px);
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: clamp(16px, 3vw, 28px);
+            animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .cover-info-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 14px 18px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cover-info-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(0, 163, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .cover-label-premium {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--color-text-muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        /* Right Side Profile Styling */
+        .cover-photo-wrapper-premium {
+            position: relative;
+            width: clamp(240px, 30vw, 360px);
+            height: clamp(240px, 30vw, 360px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            animation: scale-in-profile 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Interactive animated rotating outer borders */
+        .outer-ring-spin-1 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1.5px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: rotate-clockwise 20s linear infinite;
+        }
+        .outer-ring-spin-2 {
+            position: absolute;
+            width: 95%;
+            height: 95%;
+            border: 1.5px dashed var(--color-accent);
+            opacity: 0.35;
+            border-radius: 50%;
+            animation: rotate-counter-clockwise 15s linear infinite;
+        }
+
+        .profile-circle-inner-premium {
+            width: 84%;
+            height: 84%;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            position: relative;
+            z-index: 2;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cover-photo-wrapper-premium:hover .profile-circle-inner-premium {
+            border-color: var(--color-accent);
+            box-shadow: 0 25px 60px rgba(0, 163, 255, 0.3);
+            transform: scale(1.02);
+        }
+
+        .cover-glow-premium {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--color-accent-dim) 0%, transparent 65%);
+            filter: blur(35px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.65;
+            transition: all 0.5s ease;
+        }
+
+        .cover-photo-wrapper-premium:hover .cover-glow-premium {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* CSS Keyframes */
+        @keyframes rotate-clockwise {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes rotate-counter-clockwise {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scale-in-profile {
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Mobile specific layout override */
+        @media (max-width: 639px) {
+            .cover-wrapper {
+                flex-direction: column !important;
+                text-align: center;
+                gap: 30px;
+            }
+            .cover-subtitle-premium {
+                justify-content: center;
+            }
+            .cover-subtitle-premium::before {
+                display: none;
+            }
+            .cover-info-grid-premium {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .cover-photo-wrapper-premium {
+                width: 180px;
+                height: 180px;
+                order: -1; /* Image on top on mobile */
+            }
+        }
+    </style>
+
+    <!-- Background glowing spots -->
+    <div class="cover-bg-glow"></div>
+    <div class="cover-bg-glow-right"></div>
+
+    <div class="cover-wrapper">
 
         <!-- ฝั่งซ้าย: ข้อมูลผู้นำเสนอ -->
-        <div style="flex: 1; min-width: min(280px, 100%);">
-            <!-- Badge -->
-            <div style="display:inline-flex; align-items:center; gap:8px;
-                        background:var(--color-accent-dim); border:1px solid var(--color-border-active);
-                        padding:6px 14px; border-radius:20px; margin-bottom:clamp(14px, 3vw, 24px);">
+        <div style="flex: 1; min-width: min(280px, 100%); z-index: 1;">
+            
+            <!-- Badge ด้านบน -->
+            <div class="cover-badge-premium">
                 <span class="accent-dot animate-pulse"></span>
-                <span style="font-family:var(--font-mono); font-size:clamp(0.65rem, 1.2vw, 0.78rem); color:var(--color-accent);
-                             letter-spacing:0.12em; font-weight:600; white-space: nowrap;">ฝึกงาน · INTERNSHIP</span>
+                <span style="font-family: var(--font-mono); font-size: clamp(0.65rem, 1.2vw, 0.78rem); color: var(--color-accent);
+                             letter-spacing: 0.12em; font-weight: 600; white-space: nowrap;">ฝึกงาน · INTERNSHIP</span>
             </div>
 
-            <!-- หัวเรื่องหลัก -->
-            <h1
-                style="font-family:var(--font-display); font-size:clamp(1.8rem, 5vw, 3.4rem);
-                       font-weight:700; line-height:1.2; letter-spacing:-0.02em; margin-bottom:clamp(10px, 2vw, 16px); color:var(--color-text-primary);">
+            <!-- หัวเรื่องหลัก (หัวข้อการฝึกงาน) -->
+            <h1 class="cover-title-premium">
                 รายงานการนำเสนอ<br>
-                <span style="color:var(--color-accent);">การฝึกงาน</span>
+                <span style="background: linear-gradient(90deg, #ffffff 0%, var(--color-accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">การฝึกงาน</span>
             </h1>
 
-            <!-- ชื่อสถานที่ -->
-            <p
-                style="font-size:clamp(0.9rem, 2vw, 1.15rem); color:var(--color-text-muted); margin-bottom:clamp(20px, 4vw, 32px); line-height:1.6;">
-                อุทยานวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์
+            <!-- ชื่อสถานที่ฝึกงาน -->
+            <p class="cover-subtitle-premium">
+                อุทยานวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์ (PSU Science Park)
             </p>
 
-            <!-- เส้นคั่น + ข้อมูล -->
-            <div
-                style="border-top:1px solid var(--color-border); padding-top:clamp(16px, 3vw, 24px); display:grid; grid-template-columns: 1fr 1fr; gap:clamp(12px, 2vw, 20px);">
-                <div>
-                    <div style="font-family:var(--font-mono); font-size:0.68rem; color:var(--color-text-muted);
-                                letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px;">ผู้จัดทำ</div>
-                    <div
-                        style="font-family:var(--font-display); font-size:clamp(1.1rem, 2.5vw, 1.6rem); font-weight:700; color:var(--color-text-primary);">
-                        นาย พาทิศ หนูดำ</div>
-                    <div
-                        style="font-family:var(--font-mono); font-size:clamp(0.75rem, 1.5vw, 1rem); color:var(--color-accent); margin-top:2px;">
-                        รหัส: 6610210699</div>
+            <!-- กล่องแสดงข้อมูลผู้พัฒนาโครงการ (Glassmorphism Cards) -->
+            <div class="cover-info-grid-premium">
+                
+                <!-- การ์ด 1: ข้อมูลผู้จัดทำ -->
+                <div class="cover-info-card">
+                    <div class="cover-label-premium">ผู้จัดทำโครงงาน</div>
+                    <div style="font-family: var(--font-display); font-size: clamp(1.1rem, 2.5vw, 1.35rem); font-weight: 700; color: #ffffff; margin-bottom: 2px;">
+                        นาย พาทิศ หนูดำ
+                    </div>
+                    <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-accent); font-weight: 600;">
+                        รหัสประจำตัว: 6610210699
+                    </div>
                 </div>
-                <div>
-                    <div style="font-family:var(--font-mono); font-size:0.68rem; color:var(--color-text-muted);
-                                letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px;">สาขาวิชา</div>
-                    <div
-                        style="font-size:clamp(0.85rem, 1.8vw, 1.05rem); font-weight:600; color:var(--color-text-primary); line-height:1.4;">
-                        เทคโนโลยีสารสนเทศ<br>และการสื่อสาร</div>
-                    <div style="font-size:0.85rem; color:var(--color-text-muted); margin-top:2px;">คณะวิทยาศาสตร์</div>
+
+                <!-- การ์ด 2: หลักสูตรและการศึกษา -->
+                <div class="cover-info-card">
+                    <div class="cover-label-premium">สาขาวิชาและคณะ</div>
+                    <div style="font-size: clamp(0.85rem, 1.8vw, 0.95rem); font-weight: 600; color: #ffffff; line-height: 1.4;">
+                        เทคโนโลยีสารสนเทศและการสื่อสาร
+                    </div>
+                    <div style="font-size: 0.78rem; color: var(--color-text-muted); margin-top: 2px;">
+                        คณะวิทยาศาสตร์ ม.อ.
+                    </div>
                 </div>
+
             </div>
         </div>
 
-        <!-- ฝั่งขวา: รูปโปรไฟล์ -->
-        <div class="cover-photo-wrapper">
-            <!-- วงแหวน SVG -->
-            <svg viewBox="0 0 100 100" style="position:absolute; width:100%; height:100%; top:0; left:0;
-                                               pointer-events:none; transform:rotate(-45deg);">
-                <circle cx="50" cy="50" r="47" fill="none" stroke="var(--color-border)" stroke-width="0.8" />
-                <circle cx="50" cy="50" r="47" fill="none" stroke="var(--color-accent)" stroke-width="1.2"
-                    stroke-dasharray="18 180" />
-                <circle cx="50" cy="50" r="47" fill="none" stroke="var(--color-accent-hover)" stroke-width="1.2"
-                    stroke-dasharray="35 150" stroke-dashoffset="90" />
-            </svg>
-            <!-- รูปโปรไฟล์ -->
-            <div class="profile-circle-inner">
-                <img src="assets/Profile.jpg" alt="Presenter Photo"
-                    style="width:100%; height:100%; object-fit:cover; object-position:center;">
+        <!-- ฝั่งขวา: รูปภาพโปรไฟล์ผู้นำเสนอ (พร้อมวงแหวนเรืองแสงและเอฟเฟกต์หมุน) -->
+        <div class="cover-photo-wrapper-premium">
+            <!-- Neon Glowing Circles -->
+            <div class="outer-ring-spin-1"></div>
+            <div class="outer-ring-spin-2"></div>
+            
+            <!-- Circular Profile Cover -->
+            <div class="profile-circle-inner-premium">
+                <img src="assets/Profile.jpg" alt="พาทิศ หนูดำ"
+                    style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
             </div>
-            <!-- แสงรัศมี -->
-            <div class="cover-glow"></div>
+            
+            <!-- Ambient Glow Behind Profile -->
+            <div class="cover-glow-premium"></div>
         </div>
 
     </div>
