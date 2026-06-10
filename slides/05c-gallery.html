@@ -1,70 +1,171 @@
 <!-- สไลด์หน้า 4.3: ภาพตัวอย่างระบบเพิ่มเติม (Gallery) -->
-<div class="slide-page" style="padding: clamp(16px, 3vw, 32px); overflow-y: auto;">
+<div class="slide-page" style="padding: clamp(14px, 3vw, 32px); overflow-y: auto;">
 
     <!-- ส่วนหัว -->
-    <div style="margin-bottom: clamp(12px, 2.5vw, 18px); flex-shrink: 0;">
+    <div style="margin-bottom: clamp(10px, 2vw, 18px); flex-shrink: 0;">
         <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--color-accent);
-                    letter-spacing:0.14em; text-transform:uppercase; margin-bottom:6px;">
+                    letter-spacing:0.14em; text-transform:uppercase; margin-bottom:5px;">
             ภาพตัวอย่างระบบ · System Showcase
         </div>
         <h2 class="slide-title">ภาพตัวอย่าง<span>อินเทอร์เฟซระบบ</span></h2>
     </div>
 
-    <!-- Grid 3 ภาพตัวอย่าง -->
-    <div class="grid-3-col" style="flex:1 1 0; min-height:0;">
+    <style>
+        /* Gallery grid — responsive breakpoints */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(10px, 2vw, 18px);
+            flex: 1 1 0;
+            min-height: 0;
+            align-items: stretch;
+        }
+
+        /* Tablet: 2 columns */
+        @media (max-width: 860px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                flex: none;
+            }
+        }
+
+        /* Mobile: 1 column */
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                flex: none;
+            }
+        }
+
+        /* Gallery card */
+        .gallery-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: clamp(10px, 1.8vw, 16px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 0;
+            transition: var(--transition-fast);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+        }
+
+        .gallery-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(0,163,255,0.08);
+        }
+
+        /* Image frame — uses aspect-ratio for consistency across breakpoints */
+        .gallery-img-frame {
+            width: 100%;
+            aspect-ratio: 16/10;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            background: #0b1122;
+            margin-bottom: clamp(8px, 1.5vw, 12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            box-sizing: border-box;
+            cursor: zoom-in;
+        }
+
+        /* On desktop where grid fills full height, allow image to stretch */
+        @media (min-width: 861px) {
+            .gallery-img-frame {
+                aspect-ratio: unset;
+                flex: 1;
+            }
+        }
+
+        .gallery-img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+
+        .gallery-card:hover .gallery-img-frame img {
+            transform: scale(1.03);
+        }
+
+        .gallery-badge-row {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .gallery-title {
+            font-size: clamp(0.82rem, 1.6vw, 0.95rem);
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            color: var(--color-text-primary);
+        }
+
+        .gallery-desc {
+            font-size: clamp(0.7rem, 1.3vw, 0.78rem);
+            color: var(--color-text-muted);
+            line-height: 1.5;
+            margin: 0;
+        }
+    </style>
+
+    <!-- Grid ภาพ 3 หน้า -->
+    <div class="gallery-grid">
 
         <!-- ภาพที่ 1: แค็ตตาล็อกสินค้า -->
-        <div class="content-card" style="padding:clamp(12px, 2vw, 16px); display:flex; flex-direction:column; justify-content:space-between; min-height:0;">
-            <div style="width:100%; height:clamp(120px, 20vw, 200px); border-radius:6px; overflow:hidden; border:1px solid var(--color-border); background:#0b1122; margin-bottom:10px; display:flex; align-items:center; justify-content:center; padding:5px; box-sizing:border-box;">
-                <img src="assets/p2/Product.png" alt="Product Catalog" style="width:100%; height:100%; object-fit:contain; display:block;">
+        <div class="gallery-card">
+            <div class="gallery-img-frame">
+                <img src="assets/p2/Product.png" alt="Product Catalog">
             </div>
             <div style="flex-shrink:0;">
-                <div style="font-family:var(--font-mono); font-size:0.62rem; color:var(--color-accent); margin-bottom:5px; font-weight:600; letter-spacing:0.05em; display:flex; justify-content:space-between;">
+                <div class="gallery-badge-row" style="color:var(--color-accent);">
                     <span>INTERFACE 01</span>
                     <span>Product Catalog</span>
                 </div>
-                <h4 style="font-size:clamp(0.82rem, 1.6vw, 0.95rem); font-weight:700; margin:0 0 5px 0; color:var(--color-text-primary);">
-                    หน้าหลักและแค็ตตาล็อกสินค้า</h4>
-                <p style="font-size:clamp(0.72rem, 1.4vw, 0.8rem); color:var(--color-text-muted); line-height:1.5; margin:0;">
-                    แสดงรายการสินค้านวัตกรรมทั้งหมด พร้อมระบบตัวกรองหมวดหมู่และการค้นหา
-                </p>
+                <h4 class="gallery-title">หน้าหลักและแค็ตตาล็อกสินค้า</h4>
+                <p class="gallery-desc">แสดงรายการสินค้านวัตกรรมทั้งหมด พร้อมระบบตัวกรองหมวดหมู่และการค้นหา</p>
             </div>
         </div>
 
         <!-- ภาพที่ 2: ฟอร์มจอง -->
-        <div class="content-card" style="padding:clamp(12px, 2vw, 16px); display:flex; flex-direction:column; justify-content:space-between; min-height:0;">
-            <div style="width:100%; height:clamp(120px, 20vw, 200px); border-radius:6px; overflow:hidden; border:1px solid var(--color-border); background:#0b1122; margin-bottom:10px; display:flex; align-items:center; justify-content:center; padding:5px; box-sizing:border-box;">
-                <img src="assets/p2/form.png" alt="Booking Form" style="width:100%; height:100%; object-fit:contain; display:block;">
+        <div class="gallery-card">
+            <div class="gallery-img-frame">
+                <img src="assets/p2/form.png" alt="Booking Form">
             </div>
             <div style="flex-shrink:0;">
-                <div style="font-family:var(--font-mono); font-size:0.62rem; color:#10b981; margin-bottom:5px; font-weight:600; letter-spacing:0.05em; display:flex; justify-content:space-between;">
+                <div class="gallery-badge-row" style="color:#10b981;">
                     <span>INTERFACE 02</span>
                     <span>Booking Form</span>
                 </div>
-                <h4 style="font-size:clamp(0.82rem, 1.6vw, 0.95rem); font-weight:700; margin:0 0 5px 0; color:var(--color-text-primary);">
-                    ฟอร์มจองอาหารและเครื่องดื่ม</h4>
-                <p style="font-size:clamp(0.72rem, 1.4vw, 0.8rem); color:var(--color-text-muted); line-height:1.5; margin:0;">
-                    ระบบกรอกข้อมูลจองห้องประชุม เลือกเวลา จำนวนผู้เข้าร่วม และเลือกเมนูอาหาร
-                </p>
+                <h4 class="gallery-title">ฟอร์มจองอาหารและเครื่องดื่ม</h4>
+                <p class="gallery-desc">ระบบกรอกข้อมูลจองห้องประชุม เลือกเวลา จำนวนผู้เข้าร่วม และเลือกเมนูอาหาร</p>
             </div>
         </div>
 
         <!-- ภาพที่ 3: Admin Dashboard -->
-        <div class="content-card" style="padding:clamp(12px, 2vw, 16px); display:flex; flex-direction:column; justify-content:space-between; min-height:0;">
-            <div style="width:100%; height:clamp(120px, 20vw, 200px); border-radius:6px; overflow:hidden; border:1px solid var(--color-border); background:#0b1122; margin-bottom:10px; display:flex; align-items:center; justify-content:center; padding:5px; box-sizing:border-box;">
-                <img src="assets/p2/admin.png" alt="Admin Dashboard" style="width:100%; height:100%; object-fit:contain; display:block;">
+        <div class="gallery-card">
+            <div class="gallery-img-frame">
+                <img src="assets/p2/admin.png" alt="Admin Dashboard">
             </div>
             <div style="flex-shrink:0;">
-                <div style="font-family:var(--font-mono); font-size:0.62rem; color:#a855f7; margin-bottom:5px; font-weight:600; letter-spacing:0.05em; display:flex; justify-content:space-between;">
+                <div class="gallery-badge-row" style="color:#a855f7;">
                     <span>INTERFACE 03</span>
                     <span>Admin Dashboard</span>
                 </div>
-                <h4 style="font-size:clamp(0.82rem, 1.6vw, 0.95rem); font-weight:700; margin:0 0 5px 0; color:var(--color-text-primary);">
-                    แผงควบคุมระบบหลังบ้าน (Admin)</h4>
-                <p style="font-size:clamp(0.72rem, 1.4vw, 0.8rem); color:var(--color-text-muted); line-height:1.5; margin:0;">
-                    หน้าจัดการรายการจองอาหาร ตรวจสอบข้อมูลสินค้าในคลัง และอัปเดตสถานะการอนุมัติแบบเรียลไทม์
-                </p>
+                <h4 class="gallery-title">แผงควบคุมระบบหลังบ้าน (Admin)</h4>
+                <p class="gallery-desc">หน้าจัดการรายการจองอาหาร ตรวจสอบข้อมูลสินค้าในคลัง และอัปเดตสถานะการอนุมัติ</p>
             </div>
         </div>
+
     </div>
 </div>

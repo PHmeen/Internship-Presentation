@@ -1,12 +1,17 @@
 <!-- สไลด์หน้า 8: ทักษะและสิ่งที่ได้รับ (Learnings & Skills) -->
-<div class="slide-page" style="padding: clamp(16px, 3vw, 32px); justify-content: center; align-items: center; overflow-y: auto; position: relative;">
+<div class="slide-page"
+    style="padding: clamp(16px, 3vw, 32px); justify-content: center; align-items: center; overflow-y: auto; position: relative;">
 
     <!-- Background Ambient Glow -->
-    <div style="position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(0,163,255,0.05) 0%, transparent 65%); pointer-events:none; z-index:0;"></div>
+    <div
+        style="position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(0,163,255,0.05) 0%, transparent 65%); pointer-events:none; z-index:0;">
+    </div>
 
     <!-- ส่วนหัว -->
-    <div style="width:100%; max-width:1100px; text-align:left; margin-bottom:clamp(12px, 2.5vw, 20px); z-index:1; flex-shrink:0;">
-        <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-accent); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:6px; font-weight:600;">
+    <div
+        style="width:100%; max-width:1100px; text-align:left; margin-bottom:clamp(12px, 2.5vw, 20px); z-index:1; flex-shrink:0;">
+        <div
+            style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-accent); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:6px; font-weight:600;">
             Learnings &amp; Skills
         </div>
         <h2 class="slide-title" style="margin-bottom:4px;">ทักษะและ<span>สิ่งที่ได้เรียนรู้ระหว่างฝึกงาน</span></h2>
@@ -48,13 +53,25 @@
         .learn-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; height: 1px;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
         }
 
-        .learn-card:hover { transform: translateY(-4px); box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5); }
-        .learn-card.tech:hover { border-color: rgba(0, 163, 255, 0.3); }
-        .learn-card.prof:hover { border-color: rgba(16, 185, 129, 0.3); }
+        .learn-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+        }
+
+        .learn-card.tech:hover {
+            border-color: rgba(0, 163, 255, 0.3);
+        }
+
+        .learn-card.prof:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+        }
 
         .learn-card-title {
             display: flex;
@@ -86,11 +103,31 @@
             font-weight: 700;
         }
 
-        .tech .skill-item-icon { background: rgba(0,163,255,0.1); border: 1px solid rgba(0,163,255,0.2); color: var(--color-accent); }
-        .prof .skill-item-icon { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: #10b981; }
+        .tech .skill-item-icon {
+            background: rgba(0, 163, 255, 0.1);
+            border: 1px solid rgba(0, 163, 255, 0.2);
+            color: var(--color-accent);
+        }
 
-        .skill-item-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(0.82rem, 1.6vw, 0.95rem); color: white; margin-bottom: 3px; }
-        .skill-item-desc { font-size: clamp(0.72rem, 1.3vw, 0.82rem); color: var(--color-text-muted); line-height: 1.5; }
+        .prof .skill-item-icon {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .skill-item-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(0.82rem, 1.6vw, 0.95rem);
+            color: white;
+            margin-bottom: 3px;
+        }
+
+        .skill-item-desc {
+            font-size: clamp(0.72rem, 1.3vw, 0.82rem);
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
     </style>
 
     <!-- ส่วนเนื้อหาทักษะ (2 Columns) -->
@@ -100,8 +137,10 @@
         <div class="learn-card tech">
             <h3 class="learn-card-title">
                 <span style="color:var(--color-accent); display:flex; align-items:center;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                     </svg>
                 </span>
                 ศักยภาพด้านเทคนิค
@@ -111,7 +150,7 @@
                 <div class="skill-item-icon">01</div>
                 <div>
                     <h4 class="skill-item-title">Full-Stack Development</h4>
-                    <p class="skill-item-desc">พัฒนาแอปพลิเคชันฝั่งหลังบ้านด้วย PHP 8 และออกแบบการเชื่อมโยงฐานข้อมูล SQLite3 ได้อย่างถูกต้องรัดกุม</p>
+                    <p class="skill-item-desc">พัฒนาเว็ปไซต์ทั้ง Frontend - Backend</p>
                 </div>
             </div>
 
@@ -119,7 +158,9 @@
                 <div class="skill-item-icon">02</div>
                 <div>
                     <h4 class="skill-item-title">UI/UX &amp; Responsive Design</h4>
-                    <p class="skill-item-desc">ออกแบบและปรับแต่งส่วนแสดงผลแค็ตตาล็อกและระบบจองสินค้าให้จัดเลย์เอาต์ยืดหยุ่น เหมาะสมทุกอุปกรณ์</p>
+                    <p class="skill-item-desc">
+                        ออกแบบและปรับปรุงหน้าจอให้ใช้งานได้ดีบนทุกอุปกรณ์
+                    </p>
                 </div>
             </div>
 
@@ -127,7 +168,8 @@
                 <div class="skill-item-icon">03</div>
                 <div>
                     <h4 class="skill-item-title">Modern Tech Stack</h4>
-                    <p class="skill-item-desc">ศึกษาและประยุกต์ใช้ Next.js ร่วมกับ TypeScript ตลอดจนการบริหารเวอร์ชันซอร์สโค้ดด้วยทีมควบคุมผ่าน GitHub</p>
+                    <p class="skill-item-desc">เรียนรู้การพัฒนาเว็บด้วย Next.js, TypeScript
+                        และการจัดการโค้ดผ่าน GitHub</p>
                 </div>
             </div>
         </div>
@@ -136,8 +178,10 @@
         <div class="learn-card prof">
             <h3 class="learn-card-title">
                 <span style="color:#10b981; display:flex; align-items:center;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                     </svg>
                 </span>
                 การทำงานแบบมืออาชีพ
@@ -147,7 +191,7 @@
                 <div class="skill-item-icon">01</div>
                 <div>
                     <h4 class="skill-item-title">การทำงานร่วมกับองค์กร</h4>
-                    <p class="skill-item-desc">ฝึกการรับโจทย์ความต้องการของจริงจากฝ่ายงาน วางแผนพัฒนาโครงงานร่วมกัน และปรับตัวรับคำแนะนำของผู้ใช้งาน</p>
+                    <p class="skill-item-desc">ทำงานร่วมกับทีม รับฟังความต้องการ และปรับปรุงงานตามข้อเสนอแนะ </p>
                 </div>
             </div>
 
@@ -155,7 +199,8 @@
                 <div class="skill-item-icon">02</div>
                 <div>
                     <h4 class="skill-item-title">ความพิถีพิถันและประณีต</h4>
-                    <p class="skill-item-desc">ใส่ใจในรายละเอียดปลีกย่อยของโครงงาน เช่น การทำงานของอนิเมชันที่ลื่นไหล การจัดสเปซโครงสร้าง และความสะอาดของโค้ด</p>
+                    <p class="skill-item-desc">ใส่ใจรายละเอียดด้านการออกแบบ การใช้งาน
+                        และความถูกต้อง</p>
                 </div>
             </div>
 
@@ -163,7 +208,8 @@
                 <div class="skill-item-icon">03</div>
                 <div>
                     <h4 class="skill-item-title">การวิเคราะห์ปัญหาอย่างเป็นระบบ</h4>
-                    <p class="skill-item-desc">จับประเด็นข้อผิดพลาดของระบบอย่างเป็นเหตุเป็นผล ทำ Live testing ตรวจสอบความถูกต้อง และค้นหาวิธีป้องกันปัญหาไม่ให้เกิดซ้ำ</p>
+                    <p class="skill-item-desc">วิเคราะห์ปัญหา ทดสอบระบบ และปรับปรุงเพื่อป้องกันข้อผิดพลาดซ้ำ
+                    </p>
                 </div>
             </div>
         </div>
