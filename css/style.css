@@ -1107,5 +1107,24 @@ body {
     }
 }
 
+/* ==========================================================================
+   แผงรูปภาพกิจกรรมแบบแกลเลอรี (Interactive Activity Gallery Styles)
+   ========================================================================== */
+.gallery-thumb-item {
+    border: 1px solid var(--color-border);
+    transition: var(--transition-fast);
+}
+.gallery-thumb-item:hover:not(.active) {
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    transform: translateX(4px);
+}
+.gallery-thumb-item.active {
+    border-color: var(--color-accent) !important;
+    background: var(--color-accent-dim) !important;
+    box-shadow: 0 0 15px var(--color-accent-dim);
+}
+
+
 
 

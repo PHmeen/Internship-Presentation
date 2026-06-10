@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "slides/05a-responsibilities-p1.html",
         "slides/05b-responsibilities-p2.html",
         "slides/05c-gallery.html",
-        "slides/06-projects.html",
+        // "slides/06-projects.html", // ← ซ่อนชั่วคราวตามคำขอของผู้ใช้
         "slides/07-challenges.html",
         "slides/08-learnings.html",
         "slides/09-suggestions.html",
@@ -30,10 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "บทบาทและหน้าที่รับผิดชอบ (ระบบจองอาหาร)",
         "บทบาทและหน้าที่รับผิดชอบ (STSP Innomart)",
         "ภาพตัวอย่างระบบเพิ่มเติม",
-        "โครงการเด่นช่วงฝึกงาน",
+        // "โครงการเด่นช่วงฝึกงาน", // ← ซ่อนพร้อมกับสไลด์ 06
         "ปัญหาและแนวทางการแก้ไข",
         "ทักษะและสิ่งที่ได้รับ",
-        "ข้อเสนอแนะของระบบ",
+        "ภาพกิจกรรมและการสนับสนุนงาน",
         "บทสรุปและการถามตอบ"
     ];
 
@@ -98,11 +98,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     3: 3, // Responsibilities P1 -> บทบาทและหน้าที่
                     4: 3, // Responsibilities P2 -> บทบาทและหน้าที่
                     5: 3, // Responsibilities Gallery -> บทบาทและหน้าที่
-                    6: 4, // Projects -> โครงการเด่น
-                    7: 5, // Challenges -> ปัญหาและการแก้ไข
-                    8: 6, // Learnings -> ทักษะและสิ่งที่ได้รับ
-                    9: 7, // Suggestions -> ข้อเสนอแนะ
-                    10: 8  // Conclusion -> บทสรุป
+                    // 6: 4, // Projects -> โครงการเด่น (Hidden)
+                    6: 4, // Challenges -> ปัญหาและการแก้ไข
+                    7: 5, // Learnings -> ทักษะและสิ่งที่ได้รับ
+                    8: 6, // Suggestions -> ภาพกิจกรรม
+                    9: 7  // Conclusion -> บทสรุป
                 };
 
                 // อัปเดตแถบสีแสดงผลที่เมนู Sidebar ด้านซ้าย (ลบคลาส active เก่า และเติมลงหน้าปัจจุบัน)
@@ -115,15 +115,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 // เขียนค่า URL Hash (เช่น #/2) เพื่อช่วยให้กด Back/Forward ในเบราว์เซอร์ได้
                 window.location.hash = `/${currentSlide + 1}`;
 
-                // หากสไลด์ที่โหลดมาคือหน้าโปรเจกต์เด่น (หน้า 7 หรือดัชนี 6) ให้รันฟังก์ชันจำลอง CLI
-                if (currentSlide === 6) {
-                    setupTerminalSimulation();
-                    setupDataFlowSimulation();
-                }
-
                 // นำเอฟเฟกต์เฟดเข้า (Fade-in & Scale-up) มาแสดงผลโดยเติมคลาส active กลับคืน
                 setTimeout(() => {
                     slideWrapper.classList.add("active");
+                    // หากสไลด์ที่โหลดมาคือหน้าโปรเจกต์เด่น (หน้า 7 หรือดัชนี 6) ให้รันฟังก์ชันจำลอง CLI
+                    if (currentSlide === 6) {
+                        setupTerminalSimulation();
+                        setupDataFlowSimulation();
+                    }
+
+
+
                     // เปิดให้ปุ่มกดนำทางใช้งานได้ตามปกติ
                     prevBtn.disabled = false;
                     nextBtn.disabled = false;
@@ -174,11 +176,11 @@ document.addEventListener("DOMContentLoaded", () => {
         1: 1, // ข้อมูลองค์กร -> About Company
         2: 2, // ตำแหน่งและลักษณะงาน -> Scope
         3: 3, // บทบาทและหน้าที่ -> Responsibilities P1 (หน้าแรกของหัวข้อนี้)
-        4: 6, // โครงการเด่น -> Projects
-        5: 7, // ปัญหาและการแก้ไข -> Challenges
-        6: 8, // ทักษะและสิ่งที่ได้รับ -> Learnings
-        7: 9, // ข้อเสนอแนะ -> Suggestions
-        8: 10  // บทสรุป -> Conclusion
+        // 4: 6, // โครงการเด่น -> Projects (Hidden)
+        4: 6, // ปัญหาและการแก้ไข -> Challenges
+        5: 7, // ทักษะและสิ่งที่ได้รับ -> Learnings
+        6: 8, // ข้อเสนอแนะ -> Suggestions (ภาพกิจกรรม)
+        7: 9  // บทสรุป -> Conclusion
     };
 
     // เปิดระบบดักจับการคลิกเลือกหัวข้อบน Sidebar เมนูด้านซ้ายโดยตรง
@@ -352,6 +354,8 @@ document.addEventListener("DOMContentLoaded", () => {
             descBox.style.borderColor = "rgba(255, 255, 255, 0.05)";
         }
     }
+
+
 
     // ==========================================================================
     // ระบบเปิดดูรูปภาพตัวอย่างแบบเต็มจอ (Interactive Lightbox Zoom)

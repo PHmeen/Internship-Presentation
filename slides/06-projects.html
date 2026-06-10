@@ -1,124 +1,304 @@
-<!-- สไลด์หน้า 5: โครงการเด่น (Key Project) -->
-<div class="slide-page">
+<!-- สไลด์หน้า 6: เทคโนโลยีหลัก (Core Technologies) - Premium Interactive Architecture -->
+<div class="slide-page" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; position: relative; overflow: hidden; padding: 20px;">
 
-    <!-- ส่วนหัว -->
-    <div style="margin-bottom:18px; flex-shrink:0;">
-        <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--color-accent);
-                    letter-spacing:0.14em; text-transform:uppercase; margin-bottom:8px;">
-            โครงการเด่น · Key Project
+    <!-- Background Ambient Glows -->
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(0, 163, 255, 0.06) 0%, rgba(0,0,0,0) 70%); z-index: 0; pointer-events: none;"></div>
+
+    <!-- Header -->
+    <div style="z-index: 1; margin-bottom: 25px; flex-shrink: 0;">
+        <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-accent); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 8px; font-weight: 600;">
+            SYSTEM ARCHITECTURE & TECH STACK
         </div>
-        <h2 class="slide-title">สถาปัตยกรรม<span>ฐานข้อมูลและระบบ</span></h2>
+        <h2 class="slide-title" style="font-size: 2.6rem; margin-bottom: 8px; justify-content: center; font-weight: 700;">สถาปัตยกรรมและเครื่องมือ</h2>
+        <p style="font-size: 0.95rem; color: var(--color-text-muted); max-width: 800px; margin: 0 auto; line-height: 1.5;">
+            การผสานการทำงานอย่างเป็นระบบ จากอินเทอร์เฟซผู้ใช้ที่รวดเร็ว สู่ตัวควบคุมหลังบ้าน และฐานข้อมูลน้ำหนักเบา
+        </p>
     </div>
 
-    <!-- Layout 2 คอลัมน์ -->
-    <div class="layout-split" style="align-items:stretch;">
+    <!-- Architecture Flow Diagram Wrapper -->
+    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; max-width: 1120px; z-index: 1; margin-bottom: 10px; flex: 1; min-height: 0;">
 
-        <!-- ซ้าย: รายละเอียดเทคโนโลยีโครงการ -->
-        <div class="content-card">
-            <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--color-accent);
-                        letter-spacing:0.12em; margin-bottom:8px; flex-shrink:0;">เทคโนโลยีหลัก: PHP &amp; SQLite3</div>
-            <h3 style="font-size:1.05rem; margin-bottom:12px;">โครงสร้างฐานข้อมูลน้ำหนักเบาและเสถียร</h3>
-            <p style="font-size:0.85rem; color:var(--color-text-muted); margin-bottom:14px; line-height:1.55;">
-                พัฒนาระบบหลังบ้านด้วยภาษา PHP เพื่อจัดการข้อมูลเว็บไซต์ STSP Innomart และจัดทำโครงสร้าง SQLite3 สำหรับจัดการระบบจองอาหารห้องประชุมของอุทยานวิทยาศาสตร์ ม.อ.
-            </p>
-            <ul class="detail-list" style="flex:1; margin-bottom:10px;">
-                <li><strong>ระบบ SQLite3 Engine:</strong> จัดเก็บข้อมูลได้เบา ติดตั้งง่าย ไม่จำเป็นต้องรัน Database Server แยก</li>
-                <li><strong>PHP Admin Controls:</strong> สร้างหน้าควบคุมการทำรายการ ข้อมูลสินค้า และสิทธิ์การเข้าถึงข้อมูลอย่างรัดกุม</li>
-            </ul>
+        <!-- Style Overrides for Premium Aesthetics -->
+        <style>
+            .arch-card {
+                flex: 1;
+                background: linear-gradient(135deg, rgba(13, 20, 38, 0.8) 0%, rgba(8, 12, 24, 0.9) 100%);
+                border: 1px solid rgba(255, 255, 255, 0.06);
+                border-radius: 14px;
+                padding: 16px;
+                box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+                transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: stretch;
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+                height: 100%;
+                max-height: 380px;
+                text-align: left;
+            }
+            .arch-card::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 0; right: 0; height: 1px;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+                pointer-events: none;
+            }
+            .arch-card:hover {
+                transform: translateY(-6px);
+                border-color: rgba(0, 163, 255, 0.3);
+                box-shadow: 0 25px 50px rgba(0, 163, 255, 0.08);
+            }
+            
+            /* Browser & Server Mockup Styles */
+            .mock-window {
+                background: #060a12;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                overflow: hidden;
+                margin-bottom: 14px;
+                flex: 1;
+                min-height: 130px;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+            }
+            .mock-header {
+                height: 24px;
+                background: rgba(255, 255, 255, 0.02);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                display: flex;
+                align-items: center;
+                padding: 0 10px;
+                gap: 6px;
+            }
+            .mock-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                display: inline-block;
+            }
+            .mock-dot.red { background: #ff5f56; }
+            .mock-dot.yellow { background: #ffbd2e; }
+            .mock-dot.green { background: #27c93f; }
+            .mock-title {
+                font-family: var(--font-mono);
+                font-size: 0.6rem;
+                color: var(--color-text-muted);
+                margin-left: 6px;
+                flex-grow: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .mock-content {
+                flex: 1;
+                overflow: hidden;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .mock-content img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: top center;
+                transition: transform 0.5s;
+            }
+            .arch-card:hover .mock-content img {
+                transform: scale(1.05);
+            }
+            
+            /* Server specific mock styles */
+            .server-console {
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                color: #a855f7;
+                padding: 12px;
+                width: 100%;
+                height: 100%;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                background: linear-gradient(180deg, #060a12 0%, #030509 100%);
+            }
+            .server-line {
+                margin-bottom: 4px;
+                white-space: nowrap;
+            }
+            .server-keyword { color: #f43f5e; }
+            .server-string { color: #10b981; }
+            
+            /* Connector style */
+            .flow-connector {
+                width: 60px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                flex-shrink: 0;
+            }
+            .connector-svg-path {
+                stroke: rgba(255, 255, 255, 0.08);
+                stroke-dasharray: 4 4;
+                transition: stroke 0.3s;
+            }
+            
+            /* Glow Dot moving animation */
+            .glow-dot-element {
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                background: var(--color-accent);
+                border-radius: 50%;
+                box-shadow: 0 0 8px var(--color-accent), 0 0 16px var(--color-accent);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s;
+            }
+            
+            @keyframes animateFlow {
+                0% { left: 0%; transform: translate(-50%, -50%); }
+                100% { left: 100%; transform: translate(-50%, -50%); }
+            }
+            
+            .glow-dot-element.glow-active {
+                opacity: 1;
+                top: 50%;
+                animation: animateFlow 1.6s infinite linear;
+            }
+            
+            /* Responsive reflow */
+            @media (max-width: 900px) {
+                .flow-connector {
+                    display: none;
+                }
+                .arch-card {
+                    max-height: none;
+                    height: auto;
+                }
+            }
+        </style>
 
-            <!-- แผนผังการส่งข้อมูลจำลองแบบโต้ตอบ (Interactive Data Flow) -->
-            <div style="background: rgba(4, 8, 19, 0.5); border: 1px solid var(--color-border); border-radius: 8px; padding: 12px; margin-bottom: 12px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; box-sizing: border-box;">
-                <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--color-accent); letter-spacing:0.05em; text-transform:uppercase; font-weight:600;">
-                    สถาปัตยกรรมการรับส่งข้อมูล (Data Flow)
+        <!-- Node 1: Client UI -->
+        <div class="arch-card" id="flow-node-ui">
+            <!-- Browser Mockup -->
+            <div class="mock-window">
+                <div class="mock-header">
+                    <span class="mock-dot red"></span>
+                    <span class="mock-dot yellow"></span>
+                    <span class="mock-dot green"></span>
+                    <span class="mock-title">stsp-innomart.th/portal</span>
                 </div>
-                
-                <div style="display:flex; justify-content:space-between; align-items:center; position:relative; padding:6px 0;">
-                    <!-- Node 1: UI -->
-                    <div id="flow-node-ui" class="flow-node" style="z-index: 2; width:70px; text-align:center; padding:6px; border-radius:6px; background:#0b1122; border:1px solid var(--color-border); cursor:pointer;">
-                        <div style="font-size:0.95rem; margin-bottom:2px;">💻</div>
-                        <div style="font-size:0.58rem; font-weight:700; color:var(--color-text-primary); text-transform:uppercase;">Frontend</div>
-                    </div>
-                    
-                    <!-- Line 1 -->
-                    <div style="flex-grow:1; height:2px; background:var(--color-border); position:relative; margin:0 8px; overflow:hidden;">
-                        <div id="glow-dot-1" class="glow-dot" style="position:absolute; width:6px; height:6px; background:var(--color-accent); border-radius:50%; top:-2px; left:-6px; box-shadow:0 0 8px var(--color-accent); opacity:0;"></div>
-                    </div>
-                    
-                    <!-- Node 2: PHP -->
-                    <div id="flow-node-php" class="flow-node" style="z-index: 2; width:70px; text-align:center; padding:6px; border-radius:6px; background:#0b1122; border:1px solid var(--color-border); cursor:pointer;">
-                        <div style="font-size:0.95rem; margin-bottom:2px;">🐘</div>
-                        <div style="font-size:0.58rem; font-weight:700; color:#4f5b93; text-transform:uppercase;">PHP 8 API</div>
-                    </div>
-                    
-                    <!-- Line 2 -->
-                    <div style="flex-grow:1; height:2px; background:var(--color-border); position:relative; margin:0 8px; overflow:hidden;">
-                        <div id="glow-dot-2" class="glow-dot" style="position:absolute; width:6px; height:6px; background:#10b981; border-radius:50%; top:-2px; left:-6px; box-shadow:0 0 8px #10b981; opacity:0;"></div>
-                    </div>
-                    
-                    <!-- Node 3: SQLite -->
-                    <div id="flow-node-db" class="flow-node" style="z-index: 2; width:70px; text-align:center; padding:6px; border-radius:6px; background:#0b1122; border:1px solid var(--color-border); cursor:pointer;">
-                        <div style="font-size:0.95rem; margin-bottom:2px;">🗄️</div>
-                        <div style="font-size:0.58rem; font-weight:700; color:#00a3ff; text-transform:uppercase;">SQLite3</div>
-                    </div>
-                </div>
-                
-                <!-- Tooltip box -->
-                <div id="flow-description-box" style="background:#050811; border:1px solid rgba(255,255,255,0.05); border-radius:6px; padding:8px; min-height:48px; display:flex; align-items:center; transition: border-color 0.25s ease;">
-                    <p id="flow-desc-text" style="font-size:0.7rem; color:var(--color-text-muted); line-height:1.45; margin:0; width:100%;">
-                        💡 เอาเมาส์ชี้ที่คอมโพเนนต์ด้านบนเพื่อทดสอบจำลองการส่งข้อมูล (Data Flow)
-                    </p>
+                <div class="mock-content">
+                    <img src="assets/p2/main.png" alt="Innomart Portal Dashboard">
                 </div>
             </div>
-
-            <!-- สถิติประสิทธิภาพ -->
-            <div class="grid-2-col" style="gap:10px; margin-top:2px; flex-shrink:0;">
-                <div style="background:rgba(0,163,255,0.06); border:1px solid rgba(0,163,255,0.15);
-                            border-radius:8px; padding:10px; text-align:center;">
-                    <div style="font-family:var(--font-display); font-size:1.5rem; font-weight:700; color:var(--color-accent);">SQLite3</div>
-                    <div style="font-size:0.7rem; color:var(--color-text-muted); letter-spacing:0.08em;">ความเร็วคิวรีสูง</div>
-                </div>
-                <div style="background:rgba(0,163,255,0.06); border:1px solid rgba(0,163,255,0.15);
-                            border-radius:8px; padding:10px; text-align:center;">
-                    <div style="font-family:var(--font-display); font-size:1.5rem; font-weight:700; color:var(--color-accent);">PHP 8</div>
-                    <div style="font-size:0.7rem; color:var(--color-text-muted); letter-spacing:0.08em;">การประมวลผลเซิร์ฟเวอร์</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ขวา: SQLite Console Simulator -->
-        <div class="content-card" style="justify-content:space-between;">
-            <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--color-text-muted);
-                        margin-bottom:10px; flex-shrink:0;">โปรแกรมจำลอง SQLite3 Console (Interactive Demo)</div>
-
-            <!-- Terminal Window -->
-            <div class="terminal-window" style="flex:1; min-height:0; display:flex; flex-direction:column;">
-                <!-- แถบด้านบน -->
-                <div class="terminal-header" style="flex-shrink:0;">
-                    <div class="dot red"></div>
-                    <div class="dot yellow"></div>
-                    <div class="dot green"></div>
-                    <span style="font-family:var(--font-mono); font-size:0.68rem; margin-left:8px;
-                                 color:var(--color-text-muted);">sqlite3 innomart.db</span>
-                </div>
-                <!-- พื้นที่แสดงผล -->
-                <div class="terminal-body" id="terminal-screen" style="flex:1; min-height:0; overflow-y:auto; min-height:100px;">
-                    <div class="terminal-line command">$ sqlite3 innomart.db</div>
-                    <div class="terminal-line" style="color:var(--color-text-muted); margin-top:8px;">
-                        [คลิกปุ่มด้านล่างเพื่อคิวรีจำลองดูข้อมูลฐานข้อมูล...]</div>
-                </div>
-                <!-- ปุ่มรัน -->
-                <div style="padding:8px 14px; background:#0b1122; border-top:1px solid var(--color-border);
-                            text-align:right; flex-shrink:0;">
-                    <button class="run-cmd-btn" id="run-audit-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            <!-- Node Detail -->
+            <div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <div style="width: 24px; height: 24px; border-radius: 6px; background: rgba(0, 163, 255, 0.1); border: 1px solid rgba(0, 163, 255, 0.2); display: flex; align-items: center; justify-content: center; color: var(--color-accent);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
-                        จำลองการรัน SQL
-                    </button>
+                    </div>
+                    <span style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: white;">Frontend UI</span>
                 </div>
+                <p style="font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.4; margin: 0;">
+                    ส่วนติดต่อผู้ใช้งานเว็บแอปพลิเคชันแบบตอบสนอง พัฒนาด้วย Modular CSS & Clean Javascript
+                </p>
+            </div>
+        </div>
+
+        <!-- Connector 1 -->
+        <div class="flow-connector">
+            <svg width="100%" height="20" viewBox="0 0 60 20" style="overflow: visible;">
+                <path class="connector-svg-path" d="M 0 10 L 60 10" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <div id="glow-dot-1" class="glow-dot-element"></div>
+        </div>
+
+        <!-- Node 2: Backend Controller -->
+        <div class="arch-card" id="flow-node-php" style="border-top: 2px solid #777BB4;">
+            <!-- Server Console Mockup -->
+            <div class="mock-window">
+                <div class="mock-header">
+                    <span class="mock-dot green animate-pulse" style="width: 5px; height: 5px;"></span>
+                    <span class="mock-title" style="color: #777BB4; font-weight: 600;">PHP 8.2 Engine</span>
+                </div>
+                <div class="mock-content" style="background: #060a12;">
+                    <div class="server-console">
+                        <div class="server-line"><span class="server-keyword">Route</span>::post(<span class="server-string">"/bookings"</span>)</div>
+                        <div class="server-line" style="color: #94a3b8; padding-left: 8px;">->validate()</div>
+                        <div class="server-line" style="color: #94a3b8; padding-left: 8px;">->sanitizeInput()</div>
+                        <div class="server-line" style="color: #00a3ff; padding-left: 8px;">->executeSQL()</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Node Detail -->
+            <div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <div style="width: 24px; height: 24px; border-radius: 6px; background: rgba(119, 123, 180, 0.1); border: 1px solid rgba(119, 123, 180, 0.2); display: flex; align-items: center; justify-content: center; color: #777BB4;">
+                        <svg role="img" viewBox="0 0 24 24" fill="currentColor" width="14" height="14" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1.455 13.375h-1.5V12.5h1.5v2.875zm-3.693-3.62L8.6 15.375h-1.5L8.262 10h1.53l-1.027 1.755zM12 15.375h-1.5l.5-2.875h-2v-1.5h2.1l-.5-2.875h1.5l.5 2.875h2v1.5h-2l-.5 2.875zm5.162-3.62l-1.162 3.62h-1.5l1.162-3.62h-1.162v-1.755h4v1.755h-1.338z"/></svg>
+                    </div>
+                    <span style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: white;">PHP Backend API</span>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.4; margin: 0;">
+                    ระบบควบคุมการประมวลผลเซิร์ฟเวอร์ จัดการ Endpoint, ตรวจสอบสิทธิ์ และประมวลผลข้อมูล
+                </p>
+            </div>
+        </div>
+
+        <!-- Connector 2 -->
+        <div class="flow-connector">
+            <svg width="100%" height="20" viewBox="0 0 60 20" style="overflow: visible;">
+                <path class="connector-svg-path" d="M 0 10 L 60 10" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <div id="glow-dot-2" class="glow-dot-element"></div>
+        </div>
+
+        <!-- Node 3: SQLite Database -->
+        <div class="arch-card" id="flow-node-db" style="border-top: 2px solid #00a3ff;">
+            <!-- Database Schema Mockup -->
+            <div class="mock-window">
+                <div class="mock-header">
+                    <span class="mock-dot red"></span>
+                    <span class="mock-dot yellow"></span>
+                    <span class="mock-dot green"></span>
+                    <span class="mock-title">sqlite3: database.db</span>
+                </div>
+                <div class="mock-content">
+                    <img src="assets/p2/admin.png" alt="Database Records & Management">
+                </div>
+            </div>
+            <!-- Node Detail -->
+            <div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <div style="width: 24px; height: 24px; border-radius: 6px; background: rgba(0, 163, 255, 0.1); border: 1px solid rgba(0, 163, 255, 0.2); display: flex; align-items: center; justify-content: center; color: var(--color-accent);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                        </svg>
+                    </div>
+                    <span style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: white;">SQLite3 Database</span>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.4; margin: 0;">
+                    ระบบฐานข้อมูลแบบไม่ใช้เซิร์ฟเวอร์ ลดภาระระบบ ประมวลผลและส่งมอบผลลัพธ์การคิวรีอย่างรวดเร็ว
+                </p>
             </div>
         </div>
 
     </div>
+
+    <!-- Interactive Flow Description Panel -->
+    <div id="flow-description-box" style="width: 100%; max-width: 1120px; background: rgba(18, 25, 42, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 16px 20px; text-align: left; transition: all 0.3s; z-index: 1; flex-shrink: 0; box-sizing: border-box;">
+        <p id="flow-desc-text" style="font-family: var(--font-body); font-size: 0.9rem; color: var(--color-text-muted); margin: 0; line-height: 1.6; display: flex; align-items: center; gap: 8px;">
+            💡 ลองนำเมาส์ไปชี้ที่แต่ละส่วน (คอมโพเนนต์) ด้านบน เพื่อจำลองทิศทางการไหลเวียนข้อมูล (Data Flow) และอ่านรายละเอียดเชิงลึก
+        </p>
+    </div>
+
 </div>
