@@ -1009,7 +1009,7 @@ button {
 .sidebar-overlay.active { display: block; }
 
 /* ==========================================================================
-   TABLET: 640px and up
+   TABLET & DESKTOP: 640px and up
    ========================================================================== */
 @media (min-width: 640px) {
     :root {
@@ -1031,11 +1031,11 @@ button {
 }
 
 /* ==========================================================================
-   DESKTOP: 1024px and up
+   DESKTOP ONLY: 1024px and up
    ========================================================================== */
 @media (min-width: 1024px) {
     :root {
-        --sidebar-width: 280px;
+        --sidebar-width: 260px;
         --header-height: 80px;
         --footer-height: 80px;
     }
@@ -1052,17 +1052,14 @@ button {
 }
 
 /* ==========================================================================
-   MOBILE: max 639px — hide sidebar, collapse UI
+   COLLAPSED SIDEBAR: max 1023px (Mobile & Tablet)
    ========================================================================== */
-@media (max-width: 639px) {
+@media (max-width: 1023px) {
     :root {
-        --header-height: 56px;
-        --footer-height: 56px;
+        --sidebar-width: 0px;
     }
 
-    body { font-size: 15px; }
-
-    /* Sidebar collapses off-canvas on mobile */
+    /* Sidebar collapses off-canvas on mobile & tablet */
     .app-sidebar {
         position: fixed;
         top: 0;
@@ -1089,6 +1086,18 @@ button {
     .slide-content-wrapper {
         max-width: none;
     }
+}
+
+/* ==========================================================================
+   MOBILE ONLY: max 767px — stack layouts, smaller UI spacing
+   ========================================================================== */
+@media (max-width: 767px) {
+    :root {
+        --header-height: 56px;
+        --footer-height: 56px;
+    }
+
+    body { font-size: 15px; }
 
     .progress-container {
         margin: 0 var(--space-sm);
@@ -1125,7 +1134,7 @@ button {
         height: 36px;
     }
 
-    /* Make slide layouts always stack on small screens */
+    /* Make slide layouts always stack on mobile */
     .layout-split {
         flex-direction: column !important;
         height: auto !important;
@@ -1155,20 +1164,6 @@ button {
     .gallery-thumb-item:hover:not(.active) {
         transform: translateX(2px);
     }
-}
-
-/* ==========================================================================
-   MEDIUM SCREENS: 640–1023px — Show sidebar collapsed by default
-   ========================================================================== */
-@media (min-width: 640px) and (max-width: 1023px) {
-    :root { --sidebar-width: 230px; }
-
-    .logo-title { font-size: 0.9rem; }
-    .sidebar-menu li { font-size: 0.82rem; padding: 10px 16px; }
-    .app-header, .app-footer { padding: 0 var(--space-lg); }
-    .customizer-pill { display: none; }
-
-    .slide-content-wrapper { max-width: 100%; }
 }
 
 /* ==========================================================================
