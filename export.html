@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>พิมพ์ / ส่งออก PDF - สรุปการฝึกงาน</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            overflow: auto !important;
+            height: auto !important;
+        }
+        
+        .print-banner {
+            background: #0d1527;
+            border-bottom: 2px solid #00a3ff;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .print-banner-content h2 {
+            font-size: 1.2rem;
+            margin: 0 0 4px 0;
+            color: #00a3ff;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .print-banner-content p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin: 0;
+        }
+        
+        .print-btn {
+            background: #00a3ff;
+            color: #050811;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 12px;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .print-btn:hover {
+            background: #38bdf8;
+            transform: translateY(-1px);
+        }
+        
+        .close-btn {
+            background: transparent;
+            color: #94a3b8;
+            border: 1px solid #1e293b;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .close-btn:hover {
+            color: #fff;
+            border-color: #94a3b8;
+        }
+
+        /* Container styling for preview on screen */
+        .print-preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            gap: 40px;
+            background: radial-gradient(circle at 50% 50%, #0e1627 0%, #060910 100%);
+        }
+
+        .slide-print-card {
+            width: 100%;
+            max-width: 1100px;
+            background: #080c16;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+            position: relative;
+        }
+
+        @media print {
+            .print-banner {
+                display: none !important;
+            }
+            .print-preview-container {
+                padding: 0 !important;
+                gap: 0 !important;
+                background: none !important;
+            }
+            .slide-print-card {
+                border: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                max-width: none !important;
+                background: #080c16 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="print-banner">
+        <div class="print-banner-content">
+            <h2>🖨️ โหมดเตรียมพิมพ์สไลด์ (Print / Export PDF Mode)</h2>
+            <p>แนะนำตั้งค่าการพิมพ์: <strong>แนวนอน (Landscape)</strong>, <strong>ขนาดกระดาษ A4</strong>, <strong>ระยะขอบ: ไม่มี (None)</strong> และ <strong>เปิดใช้กราฟิกพื้นหลัง (Background graphics)</strong></p>
+        </div>
+        <div class="print-banner-actions">
+            <button onclick="window.print()" class="print-btn">พิมพ์สไลด์ / บันทึก PDF</button>
+            <button onclick="window.close()" class="close-btn">กลับสู่หน้าหลัก</button>
+        </div>
+    </div>
+
+    <div class="print-preview-container" id="slides-container">
+        <!-- Slides will be loaded here dynamically -->
+    </div>
+
+    <script>
+        const slides = [
+            "slides/01-cover.html",
+            "slides/03-about-company.html",
+            "slides/04-scope.html",
+            "slides/05a-responsibilities-p1.html",
+            "slides/05b-responsibilities-p2.html",
+            "slides/05c-gallery.html",
+            "slides/07-challenges.html",
+            "slides/08-learnings.html",
+            "slides/08b-tech-stack.html",
+            "slides/09-suggestions.html",
+            "slides/10-conclusion.html"
+        ];
+
+        async function loadAllSlides() {
+            const container = document.getElementById("slides-container");
+            
+            for (let i = 0; i < slides.length; i++) {
+                try {
+                    const response = await fetch(slides[i]);
+                    if (!response.ok) throw new Error(`Failed to load ${slides[i]}`);
+                    const html = await response.text();
+                    
+                    const slideCard = document.createElement("div");
+                    slideCard.className = "slide-print-card";
+                    slideCard.innerHTML = html;
+                    
+                    container.appendChild(slideCard);
+                    
+                    // Force the inner slide page class styling inside our print card container
+                    const slidePage = slideCard.querySelector(".slide-page");
+                    if (slidePage) {
+                        slidePage.style.opacity = "1";
+                        slidePage.style.transform = "none";
+                    }
+
+                    // Execute any scripts embedded in the loaded slide html
+                    executeScripts(slideCard);
+                    
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+            
+            // Set up static view of simulation components if present
+            setupStaticSimulations();
+        }
+
+        function executeScripts(parent) {
+            const scripts = parent.querySelectorAll("script");
+            scripts.forEach(oldScript => {
+                const newScript = document.createElement("script");
+                Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                oldScript.parentNode.replaceChild(newScript, oldScript);
+            });
+        }
+
+        function setupStaticSimulations() {
+            // Setup static/complete states of simulated components for printing
+            
+            // 1. Terminal Screen on Challenges slide
+            const terminalScreen = document.getElementById("terminal-screen");
+            if (terminalScreen) {
+                terminalScreen.innerHTML = `
+                    <div class="terminal-line command">$ sqlite3 innomart.db</div>
+                    <div class="terminal-line command">sqlite> SELECT name, price, stock FROM products LIMIT 2;</div>
+                    <div class="terminal-line">1|STSP Honey|150.00|42</div>
+                    <div class="terminal-line">2|Rice Milk Soap|80.00|15</div>
+                    <div class="terminal-line command">sqlite> SELECT * FROM bookings ORDER BY date DESC LIMIT 1;</div>
+                    <div class="terminal-line success">104|Science Hall|Coffee Break|2026-06-10|Confirmed</div>
+                    <div class="terminal-line command">sqlite> UPDATE products SET stock = 45 WHERE id = 1;</div>
+                    <div class="terminal-line success">Query OK, 1 row affected (0.02 sec)</div>
+                `;
+            }
+
+            // Hide simulation trigger buttons on print
+            const runAuditBtn = document.getElementById("run-audit-btn");
+            if (runAuditBtn) runAuditBtn.style.display = "none";
+        }
+
+        document.addEventListener("DOMContentLoaded", loadAllSlides);
+    </script>
+</body>
+</html>

@@ -1,20 +1,18 @@
 // ==========================================================================
 // ระบบควบคุมการนำเสนอ (Presentation Engine)
-// ทำหน้าที่: โหลดสไลด์, ควบคุมคีย์บอร์ด, เปลี่ยนเฉดสีธีม และรันเครื่องมือจำลอง CLI
+// Fully Responsive + Mobile Touch Support
 // ==========================================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-    
-    // [1] รายการไฟล์สไลด์ทั้งหมด (เรียงตามลำดับหน้า 1 - 10)
+
+    // [1] รายการไฟล์สไลด์ทั้งหมด
     const slides = [
         "slides/01-cover.html",
-        // "slides/02-profile.html",  // ← ซ่อนชั่วคราว: เปิดบรรทัดนี้เมื่อต้องการแสดงหน้าแนะนำตัวกลับมา
         "slides/03-about-company.html",
         "slides/04-scope.html",
         "slides/05a-responsibilities-p1.html",
         "slides/05b-responsibilities-p2.html",
         "slides/05c-gallery.html",
-        // "slides/06-projects.html", // ← ซ่อนชั่วคราวตามคำขอของผู้ใช้
         "slides/07-challenges.html",
         "slides/08-learnings.html",
         "slides/08b-tech-stack.html",
@@ -22,27 +20,24 @@ document.addEventListener("DOMContentLoaded", () => {
         "slides/10-conclusion.html"
     ];
 
-    // [2] ชื่อหัวข้อสำหรับแสดงผลบนแถบด้านบน (Header Indicator) เพื่อความสวยงามและเป็นทางการ
+    // [2] ชื่อหัวข้อ
     const sectionTitles = [
         "หน้าแรก",
-        // "แนะนำผู้จัดทำ",  // ← ซ่อนพร้อมกับสไลด์ 02
         "ข้อมูลเกี่ยวกับองค์กร",
         "ตำแหน่งและลักษณะงาน",
-        "บทบาทและหน้าที่รับผิดชอบ (ระบบจองอาหาร)",
-        "บทบาทและหน้าที่รับผิดชอบ (STSP Innomart)",
+        "บทบาทและหน้าที่ (ระบบจองอาหาร)",
+        "บทบาทและหน้าที่ (STSP Innomart)",
         "ภาพตัวอย่างระบบเพิ่มเติม",
-        // "โครงการเด่นช่วงฝึกงาน", // ← ซ่อนพร้อมกับสไลด์ 06
         "ปัญหาและแนวทางการแก้ไข",
         "ทักษะและสิ่งที่ได้รับ",
-        "ทักษะและสิ่งที่ได้รับ",
+        "เครื่องมือและเทคโนโลยี",
         "ภาพกิจกรรมและการสนับสนุนงาน",
         "บทสรุปและการถามตอบ"
     ];
 
-    // [3] ตัวแปรควบคุมสถานะสไลด์ปัจจุบัน (เริ่มต้นที่สไลด์หน้าแรกดัชนี 0)
+    // [3] ตัวแปรสถานะ
     let currentSlide = 0;
-    
-    // ดึงค่า Element ต่างๆ จากไฟล์ HTML หลัก
+
     const slideWrapper = document.getElementById("slide-wrapper");
     const currentSlideNum = document.getElementById("current-slide-num");
     const totalSlidesNum = document.getElementById("total-slides-num");
@@ -50,86 +45,102 @@ document.addEventListener("DOMContentLoaded", () => {
     const progressBar = document.getElementById("progress-bar");
     const prevBtn = document.getElementById("prev-btn");
     const nextBtn = document.getElementById("next-btn");
-    
-    // ดึงรายการเมนูด้านซ้าย (Sidebar) ทั้งหมดมาเก็บไว้เพื่ออัปเดตสีแท็บ
     const sidebarListItems = document.querySelectorAll("#sidebar-list li");
 
-    // กำหนดจำนวนสไลด์ทั้งหมดบนแถบแสดงผลด้านบน (แปลงเป็นเลข 2 หลัก เช่น "10")
+    // Mobile sidebar elements
+    const appSidebar = document.getElementById("app-sidebar");
+    const sidebarToggle = document.getElementById("sidebar-toggle");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
     totalSlidesNum.textContent = String(slides.length).padStart(2, '0');
 
     // ==========================================================================
-    // ฟังก์ชันหลัก: ใช้โหลดสไลด์จากโฟลเดอร์ slides/ เข้ามาแสดงผลแบบไดนามิก
+    // Mobile Sidebar Toggle
+    // ==========================================================================
+    function openSidebar() {
+        appSidebar.classList.add("open");
+        sidebarOverlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeSidebar() {
+        appSidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("active");
+        document.body.style.overflow = "";
+    }
+
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener("click", () => {
+            if (appSidebar.classList.contains("open")) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        });
+    }
+
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener("click", closeSidebar);
+    }
+
+    // ==========================================================================
+    // ฟังก์ชันโหลดสไลด์
     // ==========================================================================
     async function loadSlide(index) {
         if (index < 0 || index >= slides.length) return;
-        
-        // ปิดการคลิกปุ่มนำทางชั่วขณะ เพื่อป้องกันปัญหาโหลดสไลด์ซ้ำซ้อนกัน
+
         prevBtn.disabled = true;
         nextBtn.disabled = true;
 
-        // นำเอฟเฟกต์เฟดออก (Fade-out) โดยถอดคลาส active จากกรอบคอนเทนเนอร์
         slideWrapper.classList.remove("active");
 
-        // รอให้อนิเมชันเฟดออกแสดงผลเสร็จสิ้น (200 มิลลิวินาที) จึงเริ่มเขียนเนื้อหาใหม่
         setTimeout(async () => {
             try {
-                // ส่งคำร้องขอโหลดไฟล์ HTML ของสไลด์นั้นๆ
                 const response = await fetch(slides[index]);
-                if (!response.ok) throw new Error(`ไม่สามารถโหลดไฟล์สไลด์ได้: ${slides[index]}`);
+                if (!response.ok) throw new Error(`ไม่สามารถโหลดสไลด์: ${slides[index]}`);
                 const html = await response.text();
-                
-                // แทรกโค้ด HTML ของสไลด์นั้นเข้าไปในหน้าเว็บ
+
                 slideWrapper.innerHTML = html;
                 currentSlide = index;
-                
-                // อัปเดตตัวเลขอินดิเคเตอร์ปัจจุบัน (เช่น "02")
+
                 currentSlideNum.textContent = String(currentSlide + 1).padStart(2, '0');
-                
-                // อัปเดตชื่อหัวข้อของสไลด์ที่แสดงตรง Header แถบบน
                 currentSectionTitle.textContent = sectionTitles[currentSlide];
-                
-                // คำนวณร้อยละการดำเนินสไลด์เพื่อเปลี่ยนความยาวแถบ Progress bar ด้านล่าง
+
                 const progressPercentage = (currentSlide / (slides.length - 1)) * 100;
                 progressBar.style.width = `${progressPercentage}%`;
-                
-                // แผนผังแมปดัชนีสไลด์ไปยังปุ่มเมนู Sidebar ด้านซ้าย
+
+                // Map slide to sidebar item
                 const slideToSidebarMap = {
-                    0: 0, // Cover -> หน้าปก
-                    1: 1, // About Company -> ข้อมูลองค์กร
-                    2: 2, // Scope -> ตำแหน่งและลักษณะงาน
-                    3: 3, // Responsibilities P1 -> บทบาทและหน้าที่
-                    4: 3, // Responsibilities P2 -> บทบาทและหน้าที่
-                    5: 3, // Responsibilities Gallery -> บทบาทและหน้าที่
-                    // 6: 4, // Projects -> โครงการเด่น (Hidden)
-                    6: 4, // Challenges -> ปัญหาและการแก้ไข
-                    7: 5, // Learnings -> ทักษะและสิ่งที่ได้รับ
-                    8: 5, // Tech Stack -> ทักษะและสิ่งที่ได้รับ
-                    9: 6, // Suggestions -> ภาพกิจกรรม
-                    10: 7  // Conclusion -> บทสรุป
+                    0: 0,  // Cover
+                    1: 1,  // About Company
+                    2: 2,  // Scope
+                    3: 3,  // Responsibilities P1
+                    4: 3,  // Responsibilities P2
+                    5: 3,  // Gallery
+                    6: 4,  // Challenges
+                    7: 5,  // Learnings
+                    8: 5,  // Tech Stack
+                    9: 6,  // Suggestions
+                    10: 7  // Conclusion
                 };
 
-                // อัปเดตแถบสีแสดงผลที่เมนู Sidebar ด้านซ้าย (ลบคลาส active เก่า และเติมลงหน้าปัจจุบัน)
                 sidebarListItems.forEach((li) => li.classList.remove("active"));
                 const sidebarIndex = slideToSidebarMap[currentSlide];
                 if (sidebarListItems[sidebarIndex] !== undefined) {
                     sidebarListItems[sidebarIndex].classList.add("active");
                 }
 
-                // เขียนค่า URL Hash (เช่น #/2) เพื่อช่วยให้กด Back/Forward ในเบราว์เซอร์ได้
                 window.location.hash = `/${currentSlide + 1}`;
 
-                // นำเอฟเฟกต์เฟดเข้า (Fade-in & Scale-up) มาแสดงผลโดยเติมคลาส active กลับคืน
                 setTimeout(() => {
                     slideWrapper.classList.add("active");
-                    // หากสไลด์ที่โหลดมาคือหน้าโปรเจกต์เด่น (หน้า 7 หรือดัชนี 6) ให้รันฟังก์ชันจำลอง CLI
+
+                    // Run special animations for challenges slide
                     if (currentSlide === 6) {
                         setupTerminalSimulation();
                         setupDataFlowSimulation();
                     }
 
-
-
-                    // เปิดให้ปุ่มกดนำทางใช้งานได้ตามปกติ
                     prevBtn.disabled = false;
                     nextBtn.disabled = false;
                 }, 50);
@@ -144,49 +155,86 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 200);
     }
 
-    // ฟังก์ชันเลื่อนไปยังสไลด์ถัดไป
     function nextSlide() {
         if (currentSlide < slides.length - 1) {
             loadSlide(currentSlide + 1);
+            closeSidebar();
         }
     }
 
-    // ฟังก์ชันย้อนกลับไปยังสไลด์ก่อนหน้า
     function prevSlide() {
         if (currentSlide > 0) {
             loadSlide(currentSlide - 1);
+            closeSidebar();
         }
     }
 
-    // เติมระบบดักจับการคลิกปุ่ม Next/Prev ด้านล่างหน้าจอ
     nextBtn.addEventListener("click", nextSlide);
     prevBtn.addEventListener("click", prevSlide);
 
-    // เติมระบบดักจับปุ่มกดบนคีย์บอร์ด (ลูกศรขวา/Spacebar = ถัดไป, ลูกศรซ้าย = ย้อนกลับ)
+    // Keyboard navigation
     document.addEventListener("keydown", (e) => {
         if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
-            e.preventDefault(); // ป้องกันเบราว์เซอร์เลื่อนหน้าจอลงเมื่อกด Spacebar
+            e.preventDefault();
             nextSlide();
         } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
             e.preventDefault();
             prevSlide();
+        } else if (e.key === "Escape") {
+            closeSidebar();
         }
     });
 
-    // แผนผังแมปจากปุ่มเมนู Sidebar ด้านซ้ายไปยังดัชนีสไลด์เริ่มต้น
+    // ==========================================================================
+    // Touch Swipe Support (Mobile)
+    // ==========================================================================
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    const minSwipeDistance = 50;
+
+    const viewport = document.getElementById("presentation-container");
+    if (viewport) {
+        viewport.addEventListener("touchstart", (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        viewport.addEventListener("touchend", (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, { passive: true });
+    }
+
+    function handleSwipe() {
+        const dx = touchEndX - touchStartX;
+        const dy = touchEndY - touchStartY;
+        // Only trigger horizontal swipe if it's more horizontal than vertical
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipeDistance) {
+            if (dx < 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        }
+    }
+
+    // ==========================================================================
+    // Sidebar Navigation Clicks
+    // ==========================================================================
     const sidebarToSlideMap = {
-        0: 0, // หน้าปก -> Cover
-        1: 1, // ข้อมูลองค์กร -> About Company
-        2: 2, // ตำแหน่งและลักษณะงาน -> Scope
-        3: 3, // บทบาทและหน้าที่ -> Responsibilities P1 (หน้าแรกของหัวข้อนี้)
-        // 4: 6, // โครงการเด่น -> Projects (Hidden)
-        4: 6, // ปัญหาและการแก้ไข -> Challenges
-        5: 7, // ทักษะและสิ่งที่ได้รับ -> Learnings
-        6: 9, // ข้อเสนอแนะ -> Suggestions (ภาพกิจกรรม)
-        7: 10  // บทสรุป -> Conclusion
+        0: 0,  // Cover
+        1: 1,  // About Company
+        2: 2,  // Scope
+        3: 3,  // Responsibilities P1
+        4: 6,  // Challenges
+        5: 7,  // Learnings
+        6: 9,  // Suggestions
+        7: 10  // Conclusion
     };
 
-    // เปิดระบบดักจับการคลิกเลือกหัวข้อบน Sidebar เมนูด้านซ้ายโดยตรง
     sidebarListItems.forEach((li) => {
         li.addEventListener("click", () => {
             const index = parseInt(li.getAttribute("data-index"), 10);
@@ -194,10 +242,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (targetSlide !== undefined && targetSlide !== currentSlide) {
                 loadSlide(targetSlide);
             }
+            closeSidebar();
         });
     });
 
-    // ฟังก์ชันดักจับเมื่อมีการเปลี่ยน Hash บน URL (เช่น ผู้ใช้อาจกดย้อนกลับบนลูกศรของเบราว์เซอร์)
+    // Hash change navigation
     function handleHashChange() {
         const hash = window.location.hash;
         const match = hash.match(/^\#\/(\d+)$/);
@@ -214,22 +263,17 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("hashchange", handleHashChange);
 
     // ==========================================================================
-    // ลูกเล่นเปลี่ยนชุดสีของหน้าพรีเซนต์สดๆ (Live Accent Color Changer)
+    // Theme Color Picker
     // ==========================================================================
     const colorDots = document.querySelectorAll(".color-dot");
     colorDots.forEach((dot) => {
         dot.addEventListener("click", () => {
-            // ล้างสถานะสีที่ไฮไลท์อยู่ในปัจจุบันออก
             colorDots.forEach((d) => d.classList.remove("active"));
             dot.classList.add("active");
-            
-            // อ่านค่าสี Hex จากปุ่มจุดกลมๆ ที่ผู้ใช้กดคลิก
+
             const hexColor = dot.getAttribute("data-color");
-            
-            // นำสีใหม่ไปเขียนทับตัวแปร CSS Variable (--color-accent) ในรูทหลัก
             document.documentElement.style.setProperty("--color-accent", hexColor);
-            
-            // แปลงรหัสสี Hex เป็นสเกล RGBA โปร่งแสง เพื่อใช้ในเอฟเฟกต์เรืองแสงด้านหลังสไลด์
+
             let r = parseInt(hexColor.slice(1, 3), 16);
             let g = parseInt(hexColor.slice(3, 5), 16);
             let b = parseInt(hexColor.slice(5, 7), 16);
@@ -238,23 +282,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================================================
-    // ลูกเล่นจำลองหน้าจอ Terminal ในสไลด์โครงการเด่น (Terminal Simulator)
+    // Terminal Simulation (Challenges Slide)
     // ==========================================================================
     function setupTerminalSimulation() {
         const runBtn = document.getElementById("run-audit-btn");
         const screen = document.getElementById("terminal-screen");
-        
+
         if (!runBtn || !screen) return;
-        
+
         runBtn.addEventListener("click", () => {
-            // ล็อคปุ่มกดระหว่างทำการประมวลผล เพื่อไม่ให้กดซ้ำซ้อน
             runBtn.disabled = true;
             runBtn.style.opacity = "0.5";
-            
-            // ล้างหน้าจอพิมพ์คำสั่งแรกเริ่ม
+
             screen.innerHTML = `<div class="terminal-line command">$ sqlite3 innomart.db</div>`;
-            
-            // ชุดรายการบรรทัดข้อความคิวรีจำลอง SQLite
+
             const steps = [
                 { text: "sqlite> SELECT name, price, stock FROM products LIMIT 2;", delay: 600, class: "command" },
                 { text: "1|STSP Honey|150.00|42", delay: 1200, class: "" },
@@ -264,21 +305,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 { text: "sqlite> UPDATE products SET stock = 45 WHERE id = 1;", delay: 3600, class: "command" },
                 { text: "Query OK, 1 row affected (0.02 sec)", delay: 4200, class: "success" }
             ];
-            
-            // ค่อยๆ ทยอยพิมพ์แต่ละบรรทัดขึ้นมาเลียนแบบการทำงานของโปรแกรมหลังบ้านจริง
+
             steps.forEach((step) => {
                 setTimeout(() => {
                     const line = document.createElement("div");
                     line.className = `terminal-line ${step.class}`;
                     line.textContent = step.text;
                     screen.appendChild(line);
-                    
-                    // ปัดหน้าจอลงมาด้านล่างสุดโดยอัตโนมัติเมื่อข้อความยาวทะลุกรอบ
                     screen.scrollTop = screen.scrollHeight;
                 }, step.delay);
             });
-            
-            // เปิดให้ปุ่มกดกลับมาทำงานได้ตามปกติหลังการจำลองเสร็จสิ้น
+
             setTimeout(() => {
                 runBtn.disabled = false;
                 runBtn.style.opacity = "1";
@@ -287,22 +324,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // ระบบจำลองแผนภาพรับส่งข้อมูลแบบตอบสนอง (Interactive Data Flow Simulator)
+    // Data Flow Simulation (Challenges Slide)
     // ==========================================================================
     function setupDataFlowSimulation() {
         const nodeUi = document.getElementById("flow-node-ui");
         const nodePhp = document.getElementById("flow-node-php");
         const nodeDb = document.getElementById("flow-node-db");
-        
         const glow1 = document.getElementById("glow-dot-1");
         const glow2 = document.getElementById("glow-dot-2");
-        
         const descText = document.getElementById("flow-desc-text");
         const descBox = document.getElementById("flow-description-box");
 
         if (!nodeUi || !nodePhp || !nodeDb || !glow1 || !glow2 || !descText || !descBox) return;
 
-        // Hover Frontend UI
         nodeUi.addEventListener("mouseenter", () => {
             nodeUi.style.borderColor = "var(--color-accent)";
             nodeUi.style.boxShadow = "0 0 12px var(--color-accent-dim)";
@@ -320,7 +354,6 @@ document.addEventListener("DOMContentLoaded", () => {
             resetFlowDesc();
         });
 
-        // Hover PHP 8 API
         nodePhp.addEventListener("mouseenter", () => {
             nodePhp.style.borderColor = "#4f5b93";
             nodePhp.style.boxShadow = "0 0 12px rgba(79, 91, 147, 0.25)";
@@ -338,7 +371,6 @@ document.addEventListener("DOMContentLoaded", () => {
             resetFlowDesc();
         });
 
-        // Hover SQLite3 Database
         nodeDb.addEventListener("mouseenter", () => {
             nodeDb.style.borderColor = "#00a3ff";
             nodeDb.style.boxShadow = "0 0 12px rgba(0, 163, 255, 0.25)";
@@ -358,10 +390,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-
-
     // ==========================================================================
-    // ระบบเปิดดูรูปภาพตัวอย่างแบบเต็มจอ (Interactive Lightbox Zoom)
+    // Lightbox (Zoom Images)
     // ==========================================================================
     const lightboxModal = document.getElementById("lightbox-modal");
     const lightboxImg = document.getElementById("lightbox-img");
@@ -372,42 +402,33 @@ document.addEventListener("DOMContentLoaded", () => {
         slideWrapper.addEventListener("click", (e) => {
             const img = e.target.closest("img");
             if (img) {
-                // ยกเว้นโลโก้ RSP เล็กๆ
                 if (img.classList.contains("rsp-logo-img")) return;
-                
                 lightboxImg.src = img.src;
                 lightboxCaption.textContent = img.alt || "ภาพขยายรายละเอียดหน้าอินเทอร์เฟซ";
                 lightboxModal.style.display = "flex";
-                // ให้เวลาเบราว์เซอร์จัด state เล็กน้อยเพื่อให้ CSS Transition ทำงาน
-                setTimeout(() => {
-                    lightboxModal.classList.add("show");
-                }, 10);
+                setTimeout(() => { lightboxModal.classList.add("show"); }, 10);
             }
         });
     }
 
-    if (lightboxClose) {
-        lightboxClose.addEventListener("click", () => {
-            lightboxModal.classList.remove("show");
-            setTimeout(() => {
-                lightboxModal.style.display = "none";
-            }, 300);
-        });
+    function closeLightbox() {
+        lightboxModal.classList.remove("show");
+        setTimeout(() => { lightboxModal.style.display = "none"; }, 300);
     }
+
+    if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
 
     if (lightboxModal) {
         lightboxModal.addEventListener("click", (e) => {
-            // คลิกพื้นหลังหรือคลิกตัวรูปภาพซูมเพื่อปิด
             if (e.target === lightboxModal || e.target === lightboxImg || e.target.classList.contains("lightbox-close")) {
-                lightboxModal.classList.remove("show");
-                setTimeout(() => {
-                    lightboxModal.style.display = "none";
-                }, 300);
+                closeLightbox();
             }
         });
     }
 
-    // ทำการโหลดสไลด์หน้าแรกสุดเมื่อเปิดเว็บบราวเซอร์ขึ้นมาครั้งแรก
+    // ==========================================================================
+    // Initial Load
+    // ==========================================================================
     const initialHash = window.location.hash;
     const initialMatch = initialHash.match(/^\#\/(\d+)$/);
     if (initialMatch) {
