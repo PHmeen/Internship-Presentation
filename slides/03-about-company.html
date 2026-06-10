@@ -1,38 +1,23 @@
-<!-- สไลด์หน้า 2: ข้อมูลสถานประกอบการ -->
-<div class="slide-page" style="padding: clamp(16px, 3vw, 32px); overflow-y: auto;">
+<!-- สไลด์หน้า 2: ข้อมูลสถานประกอบการ - Full Screen Image + Floating Title -->
+<div class="slide-page" style="padding: 0; overflow: hidden; position: relative; height: 100%;">
 
-    <!-- ส่วนหัว -->
-    <div style="margin-bottom: clamp(12px, 2.5vw, 20px); flex-shrink: 0;">
-        <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--color-accent);
-                    letter-spacing:0.14em; text-transform:uppercase; margin-bottom:6px;">
+    <!-- Full Screen Background Image -->
+    <img src="assets/rsp_original.png" alt="อุทยานวิทยาศาสตร์ภาคใต้ ม.อ."
+        style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
+
+    <!-- Dark gradient at bottom for text legibility -->
+    <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(5,8,17,0.5) 0%, transparent 35%, transparent 55%, rgba(5,8,17,0.85) 100%); pointer-events: none;"></div>
+
+    <!-- Floating Title at bottom-left -->
+    <div style="position: absolute; bottom: clamp(24px, 5vh, 42px); left: clamp(24px, 5vw, 48px); z-index: 2;">
+        <div style="font-family: var(--font-mono); font-size: clamp(0.65rem, 1.2vw, 0.78rem); color: var(--color-accent);
+                    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; font-weight: 600;
+                    text-shadow: 0 2px 8px rgba(0,0,0,0.8);">
             สถานประกอบการ · Workplace
         </div>
-        <h2 class="slide-title">อุทยานวิทยาศาสตร์<span> ม.อ.</span></h2>
+        <h2 class="slide-title" style="margin: 0; color: #ffffff; text-shadow: 0 2px 16px rgba(0,0,0,0.9);">
+            อุทยานวิทยาศาสตร์<span> มหาวิทยาลัยสงขลานครินทร์</span>
+        </h2>
     </div>
 
-    <!-- Layout หลัก: ภาพ + โลโก้/ที่อยู่ -->
-    <div style="display:flex; flex-direction:column; gap:clamp(10px, 2vw, 14px); flex: 1 1 0; min-height:0;">
-
-        <!-- ภาพอาคาร -->
-        <div style="flex:1; min-height:clamp(180px, 35vw, 320px); border-radius:var(--radius-md); border:1px solid var(--color-border); overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.4);">
-            <img src="assets/rsp_original.png" alt="อุทยานวิทยาศาสตร์ มอ." style="width:100%; height:100%; object-fit:cover; display:block;">
-        </div>
-
-        <!-- แถบล่าง: โลโก้ + ที่อยู่ -->
-        <div class="content-card" style="flex-shrink:0; padding:10px 14px;">
-            <div style="display:flex; align-items:center; gap:12px; flex-wrap: wrap;">
-                <div class="rsp-logo-crop" style="flex-shrink:0;">
-                    <img src="assets/rsp_original.png" alt="RSP Logo" class="rsp-logo-img">
-                </div>
-                <div style="flex:1; min-width:0; border-left:1px solid var(--color-border); padding-left:12px;">
-                    <div style="font-size:clamp(0.7rem, 1.4vw, 0.78rem); font-weight:600; color:var(--color-text-primary);">
-                        ม.อ. วิทยาเขตหาดใหญ่ ต.ทุ่งใหญ่ อ.หาดใหญ่ จ.สงขลา 90110
-                    </div>
-                    <div style="font-size:0.68rem; color:var(--color-text-muted); margin-top:2px; font-family:var(--font-mono);">
-                        0-7427-2510 · psusciencepark@gmail.com
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
