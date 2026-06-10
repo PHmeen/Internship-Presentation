@@ -10,8 +10,7 @@
             width: 100%;
             max-width: 1100px;
             z-index: 1;
-            flex: 1;
-            min-height: 0;
+            margin: auto 0;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: clamp(10px, 2vw, 18px);
@@ -64,11 +63,7 @@
         }
 
         /* On desktop: let flex fill, don't enforce aspect-ratio */
-        @media (min-width: 901px) {
-            .activity-photo {
-                aspect-ratio: unset;
-            }
-        }
+        /* On desktop, keep standard layout */
 
         .activity-photo img {
             width: 100%;
