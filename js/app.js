@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // "slides/06-projects.html", // ← ซ่อนชั่วคราวตามคำขอของผู้ใช้
         "slides/07-challenges.html",
         "slides/08-learnings.html",
+        "slides/08b-tech-stack.html",
         "slides/09-suggestions.html",
         "slides/10-conclusion.html"
     ];
@@ -32,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "ภาพตัวอย่างระบบเพิ่มเติม",
         // "โครงการเด่นช่วงฝึกงาน", // ← ซ่อนพร้อมกับสไลด์ 06
         "ปัญหาและแนวทางการแก้ไข",
+        "ทักษะและสิ่งที่ได้รับ",
         "ทักษะและสิ่งที่ได้รับ",
         "ภาพกิจกรรมและการสนับสนุนงาน",
         "บทสรุปและการถามตอบ"
@@ -101,8 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     // 6: 4, // Projects -> โครงการเด่น (Hidden)
                     6: 4, // Challenges -> ปัญหาและการแก้ไข
                     7: 5, // Learnings -> ทักษะและสิ่งที่ได้รับ
-                    8: 6, // Suggestions -> ภาพกิจกรรม
-                    9: 7  // Conclusion -> บทสรุป
+                    8: 5, // Tech Stack -> ทักษะและสิ่งที่ได้รับ
+                    9: 6, // Suggestions -> ภาพกิจกรรม
+                    10: 7  // Conclusion -> บทสรุป
                 };
 
                 // อัปเดตแถบสีแสดงผลที่เมนู Sidebar ด้านซ้าย (ลบคลาส active เก่า และเติมลงหน้าปัจจุบัน)
@@ -179,8 +182,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // 4: 6, // โครงการเด่น -> Projects (Hidden)
         4: 6, // ปัญหาและการแก้ไข -> Challenges
         5: 7, // ทักษะและสิ่งที่ได้รับ -> Learnings
-        6: 8, // ข้อเสนอแนะ -> Suggestions (ภาพกิจกรรม)
-        7: 9  // บทสรุป -> Conclusion
+        6: 9, // ข้อเสนอแนะ -> Suggestions (ภาพกิจกรรม)
+        7: 10  // บทสรุป -> Conclusion
     };
 
     // เปิดระบบดักจับการคลิกเลือกหัวข้อบน Sidebar เมนูด้านซ้ายโดยตรง

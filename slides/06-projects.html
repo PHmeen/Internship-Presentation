@@ -1,5 +1,5 @@
 <!-- สไลด์หน้า 6: เทคโนโลยีหลัก (Core Technologies) - Premium Interactive Architecture -->
-<div class="slide-page" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; position: relative; overflow: hidden; padding: 20px;">
+<div class="slide-page" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; position: relative; overflow-y: auto; padding: 20px;">
 
     <!-- Background Ambient Glows -->
     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(0, 163, 255, 0.06) 0%, rgba(0,0,0,0) 70%); z-index: 0; pointer-events: none;"></div>
@@ -15,175 +15,200 @@
         </p>
     </div>
 
-    <!-- Architecture Flow Diagram Wrapper -->
-    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; max-width: 1120px; z-index: 1; margin-bottom: 10px; flex: 1; min-height: 0;">
+    <!-- Style Overrides for Premium Aesthetics & Responsiveness -->
+    <style>
+        .architecture-grid {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 1120px;
+            z-index: 1;
+            margin-bottom: 10px;
+            flex: 1;
+            min-height: 0;
+        }
 
-        <!-- Style Overrides for Premium Aesthetics -->
-        <style>
-            .arch-card {
-                flex: 1;
-                background: linear-gradient(135deg, rgba(13, 20, 38, 0.8) 0%, rgba(8, 12, 24, 0.9) 100%);
-                border: 1px solid rgba(255, 255, 255, 0.06);
-                border-radius: 14px;
-                padding: 16px;
-                box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
-                transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-                display: flex;
+        .arch-card {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(13, 20, 38, 0.8) 0%, rgba(8, 12, 24, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: stretch;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            max-height: 380px;
+            text-align: left;
+        }
+        .arch-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            pointer-events: none;
+        }
+        .arch-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 163, 255, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 163, 255, 0.08);
+        }
+        
+        /* Browser & Server Mockup Styles */
+        .mock-window {
+            background: #060a12;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 14px;
+            flex: 1;
+            min-height: 130px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .mock-header {
+            height: 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 6px;
+        }
+        .mock-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .mock-dot.red { background: #ff5f56; }
+        .mock-dot.yellow { background: #ffbd2e; }
+        .mock-dot.green { background: #27c93f; }
+        .mock-title {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--color-text-muted);
+            margin-left: 6px;
+            flex-grow: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .mock-content {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .mock-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.5s;
+        }
+        .arch-card:hover .mock-content img {
+            transform: scale(1.05);
+        }
+        
+        /* Server specific mock styles */
+        .server-console {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: #a855f7;
+            padding: 12px;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(180deg, #060a12 0%, #030509 100%);
+        }
+        .server-line {
+            margin-bottom: 4px;
+            white-space: nowrap;
+        }
+        .server-keyword { color: #f43f5e; }
+        .server-string { color: #10b981; }
+        
+        /* Connector style */
+        .flow-connector {
+            width: 60px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .connector-svg-path {
+            stroke: rgba(255, 255, 255, 0.08);
+            stroke-dasharray: 4 4;
+            transition: stroke 0.3s;
+        }
+        
+        /* Glow Dot moving animation */
+        .glow-dot-element {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--color-accent), 0 0 16px var(--color-accent);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        @keyframes animateFlow {
+            0% { left: 0%; transform: translate(-50%, -50%); }
+            100% { left: 100%; transform: translate(-50%, -50%); }
+        }
+        
+        .glow-dot-element.glow-active {
+            opacity: 1;
+            top: 50%;
+            animation: animateFlow 1.6s infinite linear;
+        }
+        
+        /* Responsive reflow */
+        @media (max-width: 900px) {
+            .architecture-grid {
                 flex-direction: column;
-                justify-content: space-between;
-                align-items: stretch;
-                cursor: pointer;
-                position: relative;
-                overflow: hidden;
-                height: 100%;
-                max-height: 380px;
-                text-align: left;
+                height: auto;
+                flex: none;
+                gap: 24px;
+                padding-bottom: 20px;
             }
-            .arch-card::before {
-                content: '';
-                position: absolute;
-                top: 0; left: 0; right: 0; height: 1px;
-                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-                pointer-events: none;
-            }
-            .arch-card:hover {
-                transform: translateY(-6px);
-                border-color: rgba(0, 163, 255, 0.3);
-                box-shadow: 0 25px 50px rgba(0, 163, 255, 0.08);
-            }
-            
-            /* Browser & Server Mockup Styles */
-            .mock-window {
-                background: #060a12;
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                border-radius: 8px;
-                overflow: hidden;
-                margin-bottom: 14px;
-                flex: 1;
-                min-height: 130px;
-                display: flex;
-                flex-direction: column;
-                position: relative;
-            }
-            .mock-header {
-                height: 24px;
-                background: rgba(255, 255, 255, 0.02);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-                display: flex;
-                align-items: center;
-                padding: 0 10px;
-                gap: 6px;
-            }
-            .mock-dot {
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                display: inline-block;
-            }
-            .mock-dot.red { background: #ff5f56; }
-            .mock-dot.yellow { background: #ffbd2e; }
-            .mock-dot.green { background: #27c93f; }
-            .mock-title {
-                font-family: var(--font-mono);
-                font-size: 0.6rem;
-                color: var(--color-text-muted);
-                margin-left: 6px;
-                flex-grow: 1;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-            .mock-content {
-                flex: 1;
-                overflow: hidden;
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .mock-content img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: top center;
-                transition: transform 0.5s;
-            }
-            .arch-card:hover .mock-content img {
-                transform: scale(1.05);
-            }
-            
-            /* Server specific mock styles */
-            .server-console {
-                font-family: var(--font-mono);
-                font-size: 0.68rem;
-                color: #a855f7;
-                padding: 12px;
-                width: 100%;
-                height: 100%;
-                box-sizing: border-box;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                background: linear-gradient(180deg, #060a12 0%, #030509 100%);
-            }
-            .server-line {
-                margin-bottom: 4px;
-                white-space: nowrap;
-            }
-            .server-keyword { color: #f43f5e; }
-            .server-string { color: #10b981; }
-            
-            /* Connector style */
             .flow-connector {
-                width: 60px;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-                flex-shrink: 0;
+                display: none;
             }
-            .connector-svg-path {
-                stroke: rgba(255, 255, 255, 0.08);
-                stroke-dasharray: 4 4;
-                transition: stroke 0.3s;
+            .arch-card {
+                max-height: none;
+                height: auto;
+                width: 100%;
+                max-width: 500px;
             }
-            
-            /* Glow Dot moving animation */
-            .glow-dot-element {
-                position: absolute;
-                width: 8px;
-                height: 8px;
-                background: var(--color-accent);
-                border-radius: 50%;
-                box-shadow: 0 0 8px var(--color-accent), 0 0 16px var(--color-accent);
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.3s;
+            .mock-window {
+                min-height: 150px;
             }
-            
-            @keyframes animateFlow {
-                0% { left: 0%; transform: translate(-50%, -50%); }
-                100% { left: 100%; transform: translate(-50%, -50%); }
-            }
-            
-            .glow-dot-element.glow-active {
-                opacity: 1;
-                top: 50%;
-                animation: animateFlow 1.6s infinite linear;
-            }
-            
-            /* Responsive reflow */
-            @media (max-width: 900px) {
-                .flow-connector {
-                    display: none;
-                }
-                .arch-card {
-                    max-height: none;
-                    height: auto;
-                }
-            }
-        </style>
+        }
+    </style>
+
+    <!-- Architecture Flow Diagram Wrapper -->
+    <div class="architecture-grid">
 
         <!-- Node 1: Client UI -->
         <div class="arch-card" id="flow-node-ui">
