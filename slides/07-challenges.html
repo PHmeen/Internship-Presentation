@@ -1,6 +1,6 @@
 <!-- สไลด์หน้า 7: ปัญหาและอุปสรรคระหว่างฝึกงาน (Challenges & Resolutions) -->
 <div class="slide-page"
-    style="display: flex; flex-direction: column; justify-content: flex-start; height: 100%; padding: 40px 5%; box-sizing: border-box; overflow-y: auto; overflow-x: hidden; position: relative;">
+    style="display: flex; flex-direction: column; justify-content: flex-start; height: 100%; padding: clamp(14px, 3vw, 40px) clamp(14px, 5%, 52px); box-sizing: border-box; overflow-y: auto; overflow-x: hidden; position: relative;">
 
     <!-- Background glow for depth -->
     <div
@@ -15,12 +15,12 @@
         .challenges-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: clamp(12px, 2.5vw, 20px);
             width: 100%;
             max-width: 1050px;
             margin: 0 auto;
             z-index: 1;
-            padding-bottom: 20px;
+            padding-bottom: 10px;
         }
 
         .challenge-row {
@@ -35,7 +35,7 @@
             background: linear-gradient(135deg, rgba(13, 20, 38, 0.6) 0%, rgba(8, 12, 24, 0.7) 100%);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 14px;
-            padding: 24px 28px;
+            padding: clamp(14px, 2.5vw, 24px) clamp(16px, 3vw, 28px);
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -93,25 +93,22 @@
                 flex-direction: column;
                 align-items: stretch;
             }
-            .challenge-connector-h {
-                display: none;
-            }
-            .challenge-connector-v {
-                display: flex;
-            }
-            .challenge-card {
-                padding: 20px;
-            }
+            .challenge-connector-h { display: none; }
+            .challenge-connector-v { display: flex; }
+        }
+        @media (max-width: 520px) {
+            .challenge-card h3 { font-size: 0.95rem !important; }
+            .challenge-card p  { font-size: 0.78rem !important; }
         }
     </style>
 
     <!-- ส่วนหัว (Header) -->
-    <div style="text-align: center; margin-bottom: 30px; flex-shrink: 0; z-index: 1;">
+    <div style="text-align: center; margin-bottom: clamp(14px, 3vw, 30px); flex-shrink: 0; z-index: 1;">
         <div
-            style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; font-weight: 600;">
-            Challenges & Solutions
+            style="font-family: var(--font-mono); font-size: clamp(0.65rem, 1.4vw, 0.85rem); color: var(--color-accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; font-weight: 600;">
+            Challenges &amp; Solutions
         </div>
-        <h2 class="slide-title" style="font-size: 2.6rem; margin-bottom: 8px; justify-content: center;">
+        <h2 class="slide-title" style="margin-bottom: 4px; justify-content: center;">
             ปัญหาและอุปสรรค<span>ระหว่างฝึกงาน</span></h2>
     </div>
 
@@ -130,8 +127,8 @@
                     </div>
                     <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #ef4444; letter-spacing: 0.1em; font-weight: 600;">PROBLEM 01</span>
                 </div>
-                <h3 style="font-size: 1.15rem; color: white; margin-bottom: 8px; font-weight: 600;">ไม่คุ้นเคยกับเครื่องมือและสภาพแวดล้อม</h3>
-                <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">
+                <h3 style="font-size: clamp(0.9rem, 1.8vw, 1.15rem); color: white; margin-bottom: 6px; font-weight: 600;">ไม่คุ้นเคยกับเครื่องมือและสภาพแวดล้อม</h3>
+                <p style="font-size: clamp(0.76rem, 1.5vw, 0.9rem); color: var(--color-text-muted); line-height: 1.5; margin: 0;">
                     ในช่วงเริ่มต้น ไม่คุ้นเคยกับเครื่องมือและระบบที่ใช้พัฒนา ทำให้ต้องใช้เวลาศึกษาเรียนรู้ค่อนข้างมาก ส่งผลให้การเริ่มงานจริงในช่วงแรกช้ากว่าที่คาดการณ์ไว้
                 </p>
             </div>
@@ -174,8 +171,8 @@
                     </div>
                     <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #10b981; letter-spacing: 0.1em; font-weight: 600;">RESOLUTION</span>
                 </div>
-                <h3 style="font-size: 1.15rem; color: white; margin-bottom: 8px; font-weight: 600;">ศึกษาเพิ่มเติมและฝึกฝนทดลองใช้งานจริง</h3>
-                <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">
+                <h3 style="font-size: clamp(0.9rem, 1.8vw, 1.15rem); color: white; margin-bottom: 6px; font-weight: 600;">ศึกษาเพิ่มเติมและฝึกฝนทดลองใช้งานจริง</h3>
+                <p style="font-size: clamp(0.76rem, 1.5vw, 0.9rem); color: var(--color-text-muted); line-height: 1.5; margin: 0;">
                     ศึกษาค้นคว้าเพิ่มเติมจากแหล่งเรียนรู้ออนไลน์ เรียนรู้วิธีการทำงานร่วมกันผ่าน Git และลองสร้างแบบจำลองการเชื่อมต่อจนมั่นใจ ทำให้การพัฒนาเดินหน้าได้อย่างราบรื่น
                 </p>
             </div>
@@ -193,8 +190,8 @@
                     </div>
                     <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #f59e0b; letter-spacing: 0.1em; font-weight: 600;">PROBLEM 02</span>
                 </div>
-                <h3 style="font-size: 1.15rem; color: white; margin-bottom: 8px; font-weight: 600;">สถาปัตยกรรมและตรรกะระบบมีความซับซ้อน</h3>
-                <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">
+                <h3 style="font-size: clamp(0.9rem, 1.8vw, 1.15rem); color: white; margin-bottom: 6px; font-weight: 600;">สถาปัตยกรรมและตรรกะระบบมีความซับซ้อน</h3>
+                <p style="font-size: clamp(0.76rem, 1.5vw, 0.9rem); color: var(--color-text-muted); line-height: 1.5; margin: 0;">
                     เมื่อโปรเจกต์ขยายตัว การเชื่อมประสานฝั่งหน้าเว็บ การคำนวณราคา สินค้าคงคลัง และระบบหลังบ้านมีความซับซ้อนสูง ทำให้เสี่ยงต่อการเกิดข้อผิดพลาดในการเชื่อมต่อข้อมูล
                 </p>
             </div>
@@ -237,8 +234,8 @@
                     </div>
                     <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #00a3ff; letter-spacing: 0.1em; font-weight: 600;">RESOLUTION</span>
                 </div>
-                <h3 style="font-size: 1.15rem; color: white; margin-bottom: 8px; font-weight: 600;">ย่อยสถาปัตยกรรมออกเป็นโมดูล</h3>
-                <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">
+                <h3 style="font-size: clamp(0.9rem, 1.8vw, 1.15rem); color: white; margin-bottom: 6px; font-weight: 600;">ย่อยสถาปัตยกรรมออกเป็นโมดูล</h3>
+                <p style="font-size: clamp(0.76rem, 1.5vw, 0.9rem); color: var(--color-text-muted); line-height: 1.5; margin: 0;">
                     จัดการแบ่งโครงสร้างไฟล์ แบ่งภาระหน้าที่ (Single Responsibility) ในแต่ละ API และเขียนเอกสารกำกับอย่างเป็นลำดับ ทำให้ควบคุมระบบง่ายขึ้นและต่อเติมฟีเจอร์ใหม่ได้รวดเร็ว
                 </p>
             </div>
@@ -256,8 +253,8 @@
                     </div>
                     <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #ec4899; letter-spacing: 0.1em; font-weight: 600;">PROBLEM 03</span>
                 </div>
-                <h3 style="font-size: 1.15rem; color: white; margin-bottom: 8px; font-weight: 600;">การสืบค้นและค้นหาบั๊กทางเทคนิคใช้เวลาสูง</h3>
-                <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">
+                <h3 style="font-size: clamp(0.9rem, 1.8vw, 1.15rem); color: white; margin-bottom: 6px; font-weight: 600;">การสืบค้นและค้นหาบั๊กทางเทคนิคใช้เวลาสูง</h3>
+                <p style="font-size: clamp(0.76rem, 1.5vw, 0.9rem); color: var(--color-text-muted); line-height: 1.5; margin: 0;">
                     เมื่อพบข้อผิดพลาดที่ไม่เคยเจอหรือมีความแปรผันของสภาพแวดล้อม (Environment variation) การวิเคราะห์ด้วยวิธีเดิมอาจใช้เวลานานและทำให้งานสะดุดลง
                 </p>
             </div>
@@ -300,8 +297,8 @@
                     </div>
                     <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #8b5cf6; letter-spacing: 0.1em; font-weight: 600;">RESOLUTION</span>
                 </div>
-                <h3 style="font-size: 1.15rem; color: white; margin-bottom: 8px; font-weight: 600;">ประยุกต์เครื่องมือตรวจสอบและ AI Co-Pilot</h3>
-                <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">
+                <h3 style="font-size: clamp(0.9rem, 1.8vw, 1.15rem); color: white; margin-bottom: 6px; font-weight: 600;">ประยุกต์เครื่องมือตรวจสอบและ AI Co-Pilot</h3>
+                <p style="font-size: clamp(0.76rem, 1.5vw, 0.9rem); color: var(--color-text-muted); line-height: 1.5; margin: 0;">
                     ใช้ระบบดีบักเกอร์เบราว์เซอร์ วิเคราะห์ Error logs ร่วมกับเครื่องมือ AI ช่วยแยกแยะสาเหตุและหาวิธีการแก้ปัญหาที่ตรงจุด ช่วยร่นระยะเวลาแก้ไขจุดบกพร่องลงอย่างมาก
                 </p>
             </div>

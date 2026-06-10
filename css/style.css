@@ -1226,3 +1226,99 @@ button {
     .grid-3-col { grid-template-columns: repeat(3, 1fr) !important; }
     .clean-pipeline-layout { flex-direction: row !important; gap: 60px !important; }
 }
+
+/* ==========================================================================
+   GLOBAL SLIDE RESPONSIVE OVERRIDES (all slides)
+   ========================================================================== */
+
+/* Ensure every inline .slide-page doesn't use fixed height on mobile */
+@media (max-width: 639px) {
+    /* Slide page base */
+    .slide-page {
+        height: auto !important;
+        min-height: 100%;
+        overflow-y: auto !important;
+    }
+
+    /* Force all inline-style flex rows inside slides to wrap */
+    .slide-page > div[style*="flex-direction: row"],
+    .slide-page > div[style*="flex-direction:row"] {
+        flex-wrap: wrap !important;
+    }
+
+    /* Any explicit layout-split override already handled via CSS class,
+       but also target inline variants */
+    .slide-page [style*="display: flex"][style*="flex-direction: row"]:not(.app-header):not(.app-footer):not(.sidebar-logo):not(.navigation-controls):not(.customizer-pill):not(.color-picker-wrapper):not(.tech-row-card):not(.sidebar-menu li):not(.activity-caption) {
+        flex-wrap: wrap !important;
+    }
+
+    /* Reduce large inline padding on slide wrappers */
+    .slide-page[style*="padding: 40px"],
+    .slide-page[style*="padding:40px"] {
+        padding: 16px !important;
+    }
+
+    /* .learnings-layout override */
+    .learnings-layout {
+        flex-direction: column !important;
+        height: auto !important;
+        flex: none !important;
+    }
+
+    /* Pipeline columns stack */
+    .pipeline-cols-container {
+        flex-direction: column !important;
+        gap: 14px !important;
+    }
+
+    /* Challenge cards — reduce padding further on tiny screens */
+    .challenge-card {
+        padding: 14px 16px !important;
+    }
+
+    /* Grid fallbacks */
+    .grid-3-col,
+    .activity-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .grid-2-col {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Title size */
+    .slide-title {
+        font-size: clamp(1.3rem, 6vw, 2rem) !important;
+    }
+
+    /* Cover photo hide already handled, but ensure profile image doesn't overflow */
+    .cover-photo-wrapper {
+        display: none !important;
+    }
+
+    /* Ensure project-preview doesn't become too tall */
+    .project-preview-container {
+        min-height: 160px !important;
+        max-height: 240px !important;
+    }
+}
+
+/* Tablet specific */
+@media (min-width: 640px) and (max-width: 900px) {
+    .grid-3-col,
+    .activity-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .slide-title {
+        font-size: clamp(1.4rem, 3.5vw, 2.2rem) !important;
+    }
+
+    .challenge-card {
+        padding: clamp(14px, 2vw, 20px) clamp(16px, 2.5vw, 24px) !important;
+    }
+
+    .learnings-layout {
+        flex-wrap: wrap !important;
+    }
+}
