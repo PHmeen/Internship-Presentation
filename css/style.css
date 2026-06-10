@@ -1,0 +1,1111 @@
+/* ==========================================================================
+   ระบบสไตล์การจัดหน้าและโทนสี (DESIGN SYSTEM & STYLESHEET)
+   ธีมพรีเมียม: นำเงินเข้ม/ฟ้าเรืองแสง (Deep Navy & Electric Blue)
+   ========================================================================== */
+
+:root {
+    /* [1] โทนสีหลักประจำระบบการออกแบบ (Color Tokens) */
+    --color-bg-sidebar: #050811;   /* โทนสีกรมท่าเกือบดำสนิทสำหรับแถบด้านซ้าย */
+    --color-bg-main: #080c16;      /* โทนสีกรมท่าเข้มสำหรับพื้นหลังแสดงหน้าจอหลัก */
+    --color-bg-gradient: radial-gradient(circle at 60% 40%, #0e1627 0%, #060910 100%); /* ไล่สีกระจายแบบวงกลมสร้างมิติมืดสลัว */
+    
+    --color-surface: rgba(18, 25, 42, 0.65); /* พื้นหลังกรอบคอนเทนต์สไตล์กระจกโปร่งแสง */
+    --color-surface-hover: rgba(30, 41, 69, 0.85); /* เฉดสีพื้นการ์ดเนื้อหาเมื่อเอาเมาส์ไปชี้ */
+    --color-border: rgba(29, 40, 61, 0.8);    /* สีของเส้นขอบบางเฉียบล้อมกรอบส่วนต่างๆ */
+    --color-border-active: #00a3ff;           /* สีเส้นขอบไฮไลต์สว่างสีน้ำเงินน้ำทะเล */
+    --color-accent: #00a3ff;                  /* สีฟ้าสว่างนำทางและเป็นสีหลักประจำธีม (เปลี่ยนตาม Picker ได้) */
+    --color-accent-hover: #38bdf8;            /* สีฟ้าเรืองแสงอ่อนๆ สำหรับการชี้เมาส์ */
+    --color-accent-dim: rgba(0, 163, 255, 0.08); /* สีฟ้าโปร่งแสงจัด (Opacity 8%) สำหรับมิติตัดพื้นหลัง */
+    
+    --color-text-primary: #f8fafc; /* สีข้อความหลักสีขาวนวล อ่านง่ายชัดเจนสูงสุด */
+    --color-text-muted: #94a3b8;   /* สีข้อความย่อยสีเทา สำหรับเนื้อหาที่มีลำดับความสำคัญรอง */
+    
+    /* [2] รูปแบบตัวอักษรและฟอนต์ (Typography Tokens) */
+    --font-display: 'Outfit', 'Inter', -apple-system, sans-serif; /* ฟอนต์หัวข้อสไตล์โมเดิร์นวิศวกรรม */
+    --font-body: 'Inter', -apple-system, sans-serif; /* ฟอนต์ข้อความอธิบายพื้นฐาน อ่านง่ายลื่นไหล */
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace; /* ฟอนต์สำหรับชุดคำสั่ง สถิติ และโค้ด */
+    
+    /* [3] ขนาดขอบเหลี่ยมมน (Radius Tokens) */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    
+    /* [4] ระยะเวลาและการเคลื่อนไหวอนิเมชัน (Transitions) */
+    --transition-smooth: all 0.65s cubic-bezier(0.16, 1, 0.3, 1); /* โค้ดเร่งดีเลย์นุ่มนวลแบบสากลสำหรับสไลด์เปลี่ยนผ่าน */
+    --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); /* เปลี่ยนผ่านทันทีสำหรับปุ่มกดหรือแท็บชี้เมาส์ */
+}
+
+/* ล้างค่าเริ่มต้นของเบราวเซอร์ (CSS Reset) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--color-bg-main);
+    background-image: var(--color-bg-gradient);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 18px; /* ปรับขนาดฟอนต์มาตรฐานให้อ่านง่าย ชัดเจน ไม่เล็กเกินไปสำหรับผู้อ่าน */
+    line-height: 1.65;
+    overflow: hidden;
+    height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   ส่วนประกอบเลย์เอาต์โครงสร้างหน้าเว็บ (Split Sidebar + Main Display)
+   ========================================================================== */
+
+.presentation-shell {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* เมนูแถบดัชนีซ้ายมือ (Sidebar) */
+.app-sidebar {
+    width: 290px;
+    background-color: var(--color-bg-sidebar);
+    border-right: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+    flex-shrink: 0;
+}
+
+/* หัวข้อแบรนด์/ชื่องานพรีเซนต์ของเมนูซ้าย */
+.sidebar-logo {
+    height: 80px;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.logo-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    color: var(--color-text-primary);
+}
+
+.sidebar-menu {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 24px 0;
+}
+
+.sidebar-menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* รายการสไลด์แต่ละแผ่นบนแถบซ้าย */
+.sidebar-menu li {
+    padding: 14px 30px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    border-left: 3px solid transparent;
+    transition: var(--transition-fast);
+}
+
+/* สไลด์หน้าที่กำลังแสดงผลอยู่ (Active แท็บ) */
+.sidebar-menu li.active {
+    background-color: rgba(0, 163, 255, 0.06);
+    color: var(--color-accent);
+    border-left-color: var(--color-accent);
+}
+
+/* เอฟเฟกต์ชี้เมาส์บนรายการที่ยังไม่ได้เลือก */
+.sidebar-menu li:hover:not(.active) {
+    color: var(--color-text-primary);
+    background-color: rgba(255, 255, 255, 0.025);
+}
+
+.sidebar-footer {
+    padding: 20px 30px;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.8rem;
+}
+
+/* จอแสดงผลข้อมูลฝั่งขวา (Main Display Area) */
+.main-display {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: var(--color-bg-main);
+    background-image: var(--color-bg-gradient);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   ส่วนหัวและส่วนท้ายของจอแสดงผลหลัก (Header & Footer)
+   ========================================================================== */
+
+.app-header {
+    height: 80px;
+    padding: 0 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    z-index: 10;
+    background-color: rgba(6, 11, 22, 0.15);
+    backdrop-filter: blur(12px);
+}
+
+.topic-indicator {
+    display: flex;
+    align-items: center;
+}
+
+.slide-indicator {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+#current-slide-num {
+    color: var(--color-accent);
+}
+
+.divider {
+    color: var(--color-border);
+    margin: 0 8px;
+}
+
+#total-slides-num {
+    color: var(--color-text-muted);
+}
+
+/* กล่องเครื่องมือปรับสีสไตล์ (Theme Color Picker) */
+.customizer-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: rgba(6, 11, 22, 0.5);
+    border: 1px solid var(--color-border);
+    padding: 8px 16px;
+    border-radius: 30px;
+    backdrop-filter: blur(8px);
+}
+
+.color-picker-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* จุดทรงกลมสีต่างๆ ที่ใช้ในการปรับสีธีม */
+.color-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.color-dot.active {
+    border-color: #fff;
+    transform: scale(1.25);
+}
+
+/* ส่วนขอบล่างของจอพรีเซนต์ (Footer Controls) */
+.app-footer {
+    height: 80px;
+    padding: 0 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--color-border);
+    z-index: 10;
+    background-color: rgba(6, 11, 22, 0.15);
+    backdrop-filter: blur(12px);
+}
+
+.navigation-controls {
+    display: flex;
+    gap: 12px;
+}
+
+/* ปุ่มเลื่อนสไลด์เดินหน้า/ถอยหลัง */
+.nav-btn {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.nav-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: var(--color-accent-dim);
+    transform: translateY(-1px);
+}
+
+.nav-btn:active {
+    transform: translateY(0);
+}
+
+/* แถบความคืบหน้าการเล่นสไลด์ (Progress Bar) */
+.progress-container {
+    flex-grow: 1;
+    max-width: 420px;
+    height: 4px;
+    background-color: var(--color-border);
+    border-radius: 2px;
+    margin: 0 40px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: var(--color-accent);
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 10px var(--color-accent);
+}
+
+/* กล่องข้อความแนะนำการกดเปลี่ยนสไลด์จากคีย์บอร์ด */
+.keyboard-tip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.key-badge {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--color-text-muted);
+}
+
+.tip-text {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-left: 4px;
+}
+
+/* ==========================================================================
+   ช่องแสดงผลเนื้อหาสไลด์หลัก (Viewport Area)
+   ========================================================================== */
+
+.presentation-viewport {
+    flex: 1 1 0;         /* ขยายเต็มพื้นที่ระหว่าง header และ footer */
+    min-height: 0;       /* สำคัญ: ป้องกัน flex item เกินขนาด parent */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* ยืด wrapper ให้เต็มความสูง */
+    padding: 28px 52px;
+    z-index: 2;
+}
+
+/* แสงสีเรืองรองแบบวงกลมไล่สีด้านหลังสไลด์ เพิ่มความพรีเมียม (Volumetric Ambient Light) */
+.presentation-viewport::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, var(--color-accent-dim) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(90px);
+    opacity: 0.85;
+    transition: background 0.4s ease;
+}
+
+/* ขอบกรอบคลุมของสไลด์แต่ละหน้า */
+.slide-content-wrapper {
+    width: 100%;
+    max-width: 1100px;
+    height: 100%;      /* เต็มความสูง viewport */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: var(--transition-smooth);
+    opacity: 0;
+    transform: scale(0.985) translateY(8px);
+    scrollbar-width: none; /* ซ่อน scrollbar แต่ยังเลื่อนได้ */
+}
+.slide-content-wrapper::-webkit-scrollbar { display: none; }
+
+/* เติมคลาส active เมื่อเนื้อหาโหลดเสร็จเพื่อสร้างอนิเมชันเลื่อนเข้า */
+.slide-content-wrapper.active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* class helper: ใช้เป็น root div ของทุกสไลด์ */
+.slide-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   สไตล์การ์ดข้อมูลและวิชวลประเภทสไลด์
+   ========================================================================== */
+
+/* หัวข้อหลักบนสุดประจำแต่ละหน้าสไลด์ */
+.slide-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem); /* ลดขนาดลงเพื่อให้เนื้อหาพอดกับหน้าจอ */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 18px; /* ลดระยะห่างใต้หัวข้อ */
+    text-wrap: balance;
+    color: var(--color-text-primary);
+}
+
+.slide-title span {
+    color: var(--color-accent);
+    transition: color 0.3s;
+}
+
+/* หัวข้อคำอธิบายย่อยของหน้าสไลด์ */
+.slide-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin-bottom: 40px;
+    max-width: 75ch;
+    text-wrap: pretty;
+    line-height: 1.7;
+}
+
+/* เลย์เอาต์แบ่งหน้าจอครึ่งซ้าย-ขวา พร้อม min-height:0 เพื่อคุมขนาด */
+.layout-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    flex: 1 1 0;
+    min-height: 0;
+}
+
+/* กล่องการ์ดเนื้อหา */
+.content-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 20px 24px;
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0, 163, 255, 0.08);
+}
+
+.content-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+/* กล่องจัดกลุ่มสถิติตัวเลขหลัก (Metrics Layout) */
+.metric-highlight {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+/* การ์ดสถิติตัวเลขย่อย */
+.metric-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 24px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    transition: var(--transition-fast);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.metric-card:hover {
+    border-color: var(--color-accent);
+}
+
+/* ตัวเลขหลักแสดงความสำเร็จสถิติ */
+.metric-number {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1;
+    margin-bottom: 6px;
+    transition: color 0.3s;
+}
+
+.metric-label {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* กล่องรายการชี้แจงหัวข้อย่อย (Detail List) */
+.detail-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.detail-list li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--color-text-primary);
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+/* จุดกลมนำทางหน้าหัวข้อ */
+.detail-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    line-height: 1.2;
+    transition: color 0.3s;
+}
+
+.mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+}
+
+/* กล่องจำลองโค้ดโปรแกรมเบื้องต้น */
+.code-preview {
+    font-family: var(--font-mono);
+    background: #040813;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    overflow-x: auto;
+    font-size: 0.95rem;
+    color: #38bdf8;
+    line-height: 1.55;
+}
+
+/* ==========================================================================
+   กล่องหน้าต่างโปรแกรมจำลองหน้าจอ Terminal (Terminal UI Window)
+   ========================================================================== */
+
+.terminal-window {
+    background: #040813;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* แถบด้านบนของกล่องจำลองคอนโซลพร้อมจุดสัญลักษณ์สามสี */
+.terminal-header {
+    background: #0b1122;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.terminal-header .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.terminal-header .dot.red { background-color: #ef4444; }
+.terminal-header .dot.yellow { background-color: #f59e0b; }
+.terminal-header .dot.green { background-color: #10b981; }
+
+.terminal-body {
+    padding: 16px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: var(--color-text-muted);
+}
+
+.terminal-line {
+    font-family: var(--font-mono);
+}
+
+.terminal-line.command {
+    color: var(--color-text-primary);
+}
+
+.terminal-line.success {
+    color: #10b981;
+}
+
+.terminal-line.output {
+    color: var(--color-accent);
+}
+
+/* ปุ่มกดเพื่อทำการจำลองรันระบบ */
+.run-cmd-btn {
+    background: var(--color-accent);
+    color: #060b16;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.88rem;
+    transition: var(--transition-fast);
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.run-cmd-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   ส่วนควบคุมการแสดงผลรูปภาพและขอบครอปรูปภาพ (Image Handlers)
+   ========================================================================== */
+
+/* เลย์เอาต์ภาพคนคู่กับเนื้อหาแนะนำตัว */
+.profile-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.profile-photo {
+    width: 220px;
+    height: 220px;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--color-border);
+    object-fit: cover;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    transition: var(--transition-fast);
+}
+
+.profile-photo:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+}
+
+.project-img {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    transition: var(--transition-fast);
+}
+
+.project-img:hover {
+    border-color: var(--color-accent);
+}
+
+/* [1] กรอบขอบครอปเจาะเฉพาะโลโก้ RSP จากภาพผังรวม */
+.rsp-logo-crop {
+    width: 190px;
+    height: 48px;
+    overflow: hidden;
+    position: relative;
+    border-radius: var(--radius-sm);
+    background-color: #fff;
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* เลื่อนตำแหน่งรูปเพื่อจับส่วนโลโก้ RSP เท่านั้น */
+.rsp-logo-img {
+    position: absolute;
+    width: 380%;
+    height: auto;
+    left: -270%;
+    top: -5%;
+}
+
+/* [2] กรอบขอบครอปเจาะภาพตัวอาคารวิทยาศาสตร์ จากภาพผังรวม */
+.science-park-crop {
+    width: 100%;
+    height: 310px;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: var(--transition-fast);
+}
+
+.science-park-crop:hover {
+    border-color: var(--color-accent);
+}
+
+/* เลื่อนและสเกลความกว้างเพื่อเจาะภาพวิวอาคารด้านล่าง */
+.science-park-img {
+    position: absolute;
+    width: 100%;
+    height: 180%;
+    top: -80%;
+    left: 0;
+    object-fit: cover;
+}
+
+/* ==========================================================================
+   อนิเมชันสำหรับเอฟเฟกต์การกะพริบเบาๆ (Keyframe Animations)
+   ========================================================================== */
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .5; transform: scale(1.1); }
+}
+
+.animate-pulse {
+    animation: pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.cover-slide {
+    text-align: left;
+}
+
+/* Responsive Grid Utilities (Desktop First, Reflows on Mobile) */
+.grid-3-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+.grid-2-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* ==========================================================================
+   รองรับการแสดงผลหน้าจอมือถือและแท็บเล็ต (Responsive Overrides)
+   ========================================================================== */
+@media (max-width: 900px) {
+    .app-sidebar {
+        display: none; /* ซ่อนแถบด้านซ้ายเมื่อเปิดดูด้วยหน้าจอมือถือขนาดเล็ก */
+    }
+    .app-header, .app-footer {
+        padding: 0 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .layout-split {
+        grid-template-columns: 1fr; /* สลับแถบคอลัมน์ซ้ายขวาให้เรียงลงมาตามแนวตั้ง */
+        gap: 24px;
+        flex: none !important;
+        height: auto !important;
+    }
+    
+    .grid-3-col {
+        grid-template-columns: 1fr;
+    }
+    .grid-2-col {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .presentation-viewport {
+        padding: 20px 16px;
+    }
+
+    .keyboard-tip {
+        display: none !important;
+    }
+
+    .progress-container {
+        margin: 0 16px;
+    }
+
+    .app-header {
+        height: 60px;
+        padding: 0 16px;
+    }
+
+    .app-footer {
+        height: 60px;
+        padding: 0 16px;
+    }
+
+    .customizer-pill {
+        display: none !important;
+    }
+
+    /* ป้องกันการบีบอัดสไลด์แนวตั้งเพื่อเลื่อน scroll ได้อย่างสมบูรณ์ */
+    .slide-page {
+        height: auto !important;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex: none !important;
+    }
+
+    /* ป้องกันการ์ดโดนบีบอัดเมื่อจัดหน้าแนวตั้งบนมือถือ */
+    .slide-page .content-card {
+        flex: none !important;
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+    /* ป้องกันกล่องภาพตัวอย่างโปรเจกต์ยุบตัวหายไปบนจอขนาดเล็ก */
+    .project-preview-container {
+        height: auto !important;
+        aspect-ratio: 16/10;
+        width: 100%;
+        flex: none !important;
+        min-height: 0 !important;
+    }
+}
+
+/* Container สำหรับแสดงภาพตัวอย่างของแต่ละโปรเจกต์ (Desktop Base) */
+.project-preview-container {
+    flex: 1 1 0;
+    min-height: 250px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: #0b1122;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    position: relative;
+}
+
+/* Contact item responsive border utility */
+.contact-item {
+    padding: 0 24px;
+}
+.contact-item:last-child {
+    border-left: 1px solid var(--color-border);
+}
+@media (max-width: 768px) {
+    .contact-item {
+        padding: 8px 12px;
+    }
+    .contact-item:last-child {
+        border-left: none;
+        border-top: 1px solid var(--color-border);
+        padding-top: 16px;
+    }
+    
+    /* สไตล์ปุ่มปิดและคำบรรยายของ Lightbox บนมือถือ */
+    .lightbox-close {
+        top: 16px !important;
+        right: 20px !important;
+        font-size: 36px !important;
+    }
+    .lightbox-caption {
+        font-size: 0.85rem !important;
+        padding: 4px 12px !important;
+        max-width: 90%;
+    }
+}
+
+/* Cover profile photo container utility */
+.cover-photo-wrapper {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile-circle-inner {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    border: 3px solid var(--color-accent);
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    position: relative;
+    z-index: 2;
+}
+.cover-glow {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, var(--color-accent-dim) 0%, transparent 70%);
+    filter: blur(28px);
+    z-index: 0;
+    pointer-events: none;
+}
+@media (max-width: 768px) {
+    .cover-photo-wrapper {
+        width: 200px;
+        height: 200px;
+        margin: 20px auto 0 auto;
+    }
+    .profile-circle-inner {
+        width: 170px;
+        height: 170px;
+    }
+    .cover-glow {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+/* ==========================================================================
+   คลาสจัดการรูปภาพแบบยืดหยุ่นตามหน้าจอ (Responsive Image Wrapper)
+   ========================================================================== */
+.responsive-image-wrapper {
+    width: 100%;
+    height: 180px;
+    max-height: 24vh;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: #0b1122;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.responsive-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.project-preview-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .responsive-image-wrapper {
+        height: 200px !important;
+        max-height: none !important;
+    }
+}
+
+/* ==========================================================================
+   ระบบแสดงผลซูมภาพแบบ Lightbox (Interactive Premium Lightbox)
+   ========================================================================== */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(3, 7, 18, 0.95);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.lightbox.show {
+    display: flex;
+    opacity: 1;
+}
+.lightbox-content {
+    margin: auto;
+    display: block;
+    max-width: 96%;
+    max-height: 90vh;
+    object-fit: contain;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    transform: scale(0.95);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    background: #0b1122;
+    padding: 6px;
+}
+.lightbox.show .lightbox-content {
+    transform: scale(1);
+}
+.lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 35px;
+    color: var(--color-text-muted);
+    font-size: 40px;
+    font-weight: 300;
+    transition: var(--transition-fast);
+    cursor: pointer;
+    line-height: 1;
+}
+.lightbox-close:hover {
+    color: var(--color-accent);
+    transform: scale(1.1);
+}
+.lightbox-caption {
+    margin: 15px auto;
+    text-align: center;
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--color-border);
+}
+
+/* เพิ่มการชี้บอกใบ้ผู้ใช้สำหรับการคลิกซูมภาพ */
+.content-card img, 
+.project-preview-container img,
+.science-park-crop img,
+.zoomable-img {
+    cursor: zoom-in;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.content-card img:hover, 
+.project-preview-container img:hover,
+.zoomable-img:hover {
+    transform: scale(1.02);
+}
+.rsp-logo-img {
+    cursor: default !important;
+}
+.rsp-logo-img:hover {
+    transform: none !important;
+}
+
+/* ==========================================================================
+   อนิเมชันจำลองแผนผังข้อมูลเรืองแสง (Interactive Data Flow Simulator)
+   ========================================================================== */
+@keyframes flowForward {
+    0% { left: -6px; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+}
+
+.glow-dot {
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.glow-active {
+    animation: flowForward 1.4s infinite linear;
+}
+
+.flow-node {
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.flow-node:hover {
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   เครื่องมือพัฒนาและกริดแสดงไอคอนเทคโนโลยี (Acquired Tech Stack Badges)
+   ========================================================================== */
+.grid-6-col {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+}
+
+.tech-badge-card {
+    background: #0b1122;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: var(--transition-fast);
+    cursor: pointer;
+}
+
+.tech-badge-card:hover {
+    border-color: var(--color-accent) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--color-accent-dim);
+}
+
+@media (max-width: 900px) {
+    .grid-6-col {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .grid-6-col {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+

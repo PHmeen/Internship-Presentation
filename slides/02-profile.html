@@ -1,0 +1,40 @@
+<!-- ==========================================================================
+     สไลด์หน้า 2: แนะนำประวัติส่วนตัวผู้ฝึกงาน (Profile Slide)
+     ========================================================================== -->
+<div class="profile-slide">
+    <!-- แถบระบุเลขลำดับหัวข้อสไลด์สีเทาด้านบน -->
+    <div class="mono-label" style="color: var(--color-text-muted); margin-bottom: 16px;">แนะนำผู้จัดทำ</div>
+    
+    <!-- หัวเรื่องหลักของสไลด์ -->
+    <h2 class="slide-title">ประวัติส่วนตัว <span>ผู้ฝึกงาน</span></h2>
+    
+    <!-- บล็อกจัดวางเลย์เอาต์แนะนำตัว (ประกอบด้วยรูปภาพด้านซ้าย และรายละเอียดด้านขวา) -->
+    <div class="profile-container">
+        <!-- ฝั่งซ้าย: รูปภาพโปรไฟล์สี่เหลี่ยมโค้งมนลอยตัว (ขนาด 220px) -->
+        <div style="width: 220px; height: 220px; border-radius: var(--radius-md); border: 2px solid var(--color-border); overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);">
+            <img src="assets/Profile.jpg" alt="พาทิศ หนูดำ Profile" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+        </div>
+        
+        <!-- ฝั่งขวา: รายละเอียดประวัติทักษะการศึกษา (จัดวางแบบการ์ด 2 คอลัมน์เคียงกัน) -->
+        <div class="grid-2-col" style="flex-grow: 1; gap: 30px;">
+            <!-- การ์ดฝั่งซ้าย: ข้อมูลส่วนตัวและการศึกษา -->
+            <div class="content-card" style="padding: 24px;">
+                <h3 style="font-size: 1.25rem; margin-bottom: 12px; color: var(--color-accent);">ข้อมูลการศึกษา</h3>
+                <p style="margin-bottom: 6px;"><strong>ชื่อ-นามสกุล</strong>: นาย พาทิศ หนูดำ</p>
+                <p style="margin-bottom: 6px;"><strong>รหัสนักศึกษา</strong>: 6610210699</p>
+                <p style="margin-bottom: 6px;"><strong>สาขาวิชา</strong>: เทคโนโลยีสารสนเทศและการสื่อสาร</p>
+                <p><strong>คณะ / มหาวิทยาลัย</strong>: คณะวิทยาศาสตร์</p>
+            </div>
+            
+            <!-- การ์ดฝั่งขวา: ทักษะวิชาชีพทางคอมพิวเตอร์ -->
+            <div class="content-card" style="padding: 24px;">
+                <h3 style="font-size: 1.25rem; margin-bottom: 12px; color: var(--color-accent);">ทักษะความเชี่ยวชาญ</h3>
+                <ul class="detail-list" style="font-size: 0.9rem; gap: 8px;">
+                    <li><strong>Languages</strong>: HTML, CSS, JavaScript (ES6+), SQL</li>
+                    <li><strong>Frameworks</strong>: Node.js, Express, React</li>
+                    <li><strong>Tools & Platforms</strong>: Git, Github, Figma, VS Code</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

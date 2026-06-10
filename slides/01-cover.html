@@ -1,0 +1,69 @@
+<!-- สไลด์หน้า 1: หน้าปกการนำเสนอ (Cover Slide) -->
+<div class="slide-page" style="justify-content: center;">
+    <div class="layout-split" style="align-items: center; gap: 40px;">
+
+        <!-- ฝั่งซ้าย: ข้อมูลผู้นำเสนอ -->
+        <div>
+            <!-- Badge -->
+            <div style="display:inline-flex; align-items:center; gap:8px;
+                        background:var(--color-accent-dim); border:1px solid var(--color-border-active);
+                        padding:6px 16px; border-radius:20px; margin-bottom:20px;">
+                <span class="accent-dot animate-pulse"></span>
+                <span style="font-family:var(--font-mono); font-size:0.78rem; color:var(--color-accent);
+                             letter-spacing:0.12em; font-weight:600;">สหกิจศึกษา · INTERNSHIP</span>
+            </div>
+
+            <!-- หัวเรื่องหลัก -->
+            <h1 style="font-family:var(--font-display); font-size:clamp(2.2rem,4.5vw,3.4rem);
+                       font-weight:700; line-height:1.2; letter-spacing:-0.02em; margin-bottom:16px; color:var(--color-text-primary);">
+                รายงานการนำเสนอ<br>
+                <span style="color:var(--color-accent);">การฝึกงาน</span>
+            </h1>
+
+            <!-- ชื่อสถานที่ -->
+            <p style="font-size:1.15rem; color:var(--color-text-muted); margin-bottom:32px; line-height:1.6;">
+                อุทยานวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์
+            </p>
+
+            <!-- เส้นคั่น + ข้อมูล -->
+            <div class="grid-2-col" style="border-top:1px solid var(--color-border); padding-top:24px; gap:20px;">
+                <div>
+                    <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--color-text-muted);
+                                letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px;">ผู้จัดทำ</div>
+                    <div style="font-family:var(--font-display); font-size:1.6rem; font-weight:700; color:var(--color-text-primary);">
+                        นาย พาทิศ หนูดำ</div>
+                    <div style="font-family:var(--font-mono); font-size:1rem; color:var(--color-accent); margin-top:2px;">
+                        รหัส: 6610210699</div>
+                </div>
+                <div>
+                    <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--color-text-muted);
+                                letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px;">สาขาวิชา</div>
+                    <div style="font-size:1.05rem; font-weight:600; color:var(--color-text-primary); line-height:1.4;">
+                        เทคโนโลยีสารสนเทศ<br>และการสื่อสาร</div>
+                    <div style="font-size:0.9rem; color:var(--color-text-muted); margin-top:2px;">คณะวิทยาศาสตร์</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ฝั่งขวา: รูปโปรไฟล์ -->
+        <div class="cover-photo-wrapper">
+            <!-- วงแหวน SVG -->
+            <svg viewBox="0 0 100 100" style="position:absolute; width:100%; height:100%; top:0; left:0;
+                                               pointer-events:none; transform:rotate(-45deg);">
+                <circle cx="50" cy="50" r="47" fill="none" stroke="var(--color-border)" stroke-width="0.8"/>
+                <circle cx="50" cy="50" r="47" fill="none" stroke="var(--color-accent)" stroke-width="1.2"
+                        stroke-dasharray="18 180"/>
+                <circle cx="50" cy="50" r="47" fill="none" stroke="var(--color-accent-hover)" stroke-width="1.2"
+                        stroke-dasharray="35 150" stroke-dashoffset="90"/>
+            </svg>
+            <!-- รูปโปรไฟล์ -->
+            <div class="profile-circle-inner">
+                <img src="assets/Profile.jpg" alt="Presenter Photo"
+                     style="width:100%; height:100%; object-fit:cover; object-position:center;">
+            </div>
+            <!-- แสงรัศมี -->
+            <div class="cover-glow"></div>
+        </div>
+
+    </div>
+</div>

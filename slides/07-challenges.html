@@ -1,0 +1,75 @@
+<!-- สไลด์หน้า 6: ปัญหาและแนวทางการแก้ไข (Challenges & Solutions) -->
+<div class="slide-page">
+
+    <!-- ส่วนหัว -->
+    <div style="margin-bottom:18px; flex-shrink:0;">
+        <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--color-accent);
+                    letter-spacing:0.14em; text-transform:uppercase; margin-bottom:8px;">
+            ปัญหาและแก้ไข · Challenges & Solutions
+        </div>
+        <h2 class="slide-title">อุปสรรคและ<span>แนวทางการแก้ไข</span></h2>
+    </div>
+
+    <!-- 2 การ์ดปัญหา -->
+    <div class="layout-split" style="align-items:stretch;">
+
+        <!-- ปัญหาที่ 1 -->
+        <div class="content-card">
+            <!-- ป้ายปัญหา -->
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px; flex-shrink:0;">
+                <div style="width:28px; height:28px; border-radius:8px; background:rgba(239,68,68,0.12);
+                            border:1px solid rgba(239,68,68,0.25); display:flex; align-items:center;
+                            justify-content:center; flex-shrink:0;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#ef4444" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <span style="font-family:var(--font-mono); font-size:0.72rem; color:#ef4444;
+                             letter-spacing:0.1em; text-transform:uppercase;">ปัญหาที่ 01</span>
+            </div>
+            <h3 style="color:var(--color-text-primary); margin-bottom:10px;">ข้อจำกัด CORS ของเบราว์เซอร์</h3>
+            <p style="font-size:0.85rem; color:var(--color-text-muted); line-height:1.55; margin-bottom:16px; flex:1;">
+                ระบบความปลอดภัยของเบราว์เซอร์ป้องกันการดึงไฟล์ HTML ย่อยมาประกอบกันผ่าน JavaScript เมื่อเปิดผ่านโปรโตคอล <code style="background:rgba(255,255,255,0.06); padding:1px 6px; border-radius:4px; font-family:var(--font-mono); font-size:0.8rem;">file://</code>
+            </p>
+            <!-- แนวทางแก้ไข -->
+            <div style="background:rgba(0,163,255,0.04); border:1px solid rgba(0,163,255,0.25);
+                        padding:12px 14px; border-radius:8px; flex-shrink:0;">
+                <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--color-accent);
+                            letter-spacing:0.1em; margin-bottom:4px;">✓ แนวทางแก้ไข</div>
+                <div style="font-size:0.85rem; color:var(--color-text-primary); line-height:1.5;">
+                    เขียน Local Server ด้วย Node.js (<code style="background:rgba(255,255,255,0.06); padding:1px 5px; border-radius:3px; font-family:var(--font-mono);">server.js</code>) ไม่มี Dependencies จำลองโฮสต์ที่ <code style="font-family:var(--font-mono); background:rgba(255,255,255,0.06); padding:1px 5px; border-radius:3px;">localhost:3000</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- ปัญหาที่ 2 -->
+        <div class="content-card">
+            <!-- ป้ายปัญหา -->
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px; flex-shrink:0;">
+                <div style="width:28px; height:28px; border-radius:8px; background:rgba(239,68,68,0.12);
+                            border:1px solid rgba(239,68,68,0.25); display:flex; align-items:center;
+                            justify-content:center; flex-shrink:0;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#ef4444" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <span style="font-family:var(--font-mono); font-size:0.72rem; color:#ef4444;
+                             letter-spacing:0.1em; text-transform:uppercase;">ปัญหาที่ 02</span>
+            </div>
+            <h3 style="color:var(--color-text-primary); margin-bottom:10px;">ดีไซน์และสไตล์ไม่สอดคล้องกัน</h3>
+            <p style="font-size:0.85rem; color:var(--color-text-muted); line-height:1.55; margin-bottom:16px; flex:1;">
+                หน้าจอและ Components ต่างๆ ที่ทีมสร้างมีขนาดฟอนต์ไม่คงที่ สีไม่ไปในทิศทางเดียวกัน และอัตราคอนทราสต์บางส่วนต่ำกว่ามาตรฐาน
+            </p>
+            <!-- แนวทางแก้ไข -->
+            <div style="background:rgba(0,163,255,0.04); border:1px solid rgba(0,163,255,0.25);
+                        padding:12px 14px; border-radius:8px; flex-shrink:0;">
+                <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--color-accent);
+                            letter-spacing:0.1em; margin-bottom:4px;">✓ แนวทางแก้ไข</div>
+                <div style="font-size:0.85rem; color:var(--color-text-primary); line-height:1.5;">
+                    กำหนดใช้งาน Design Tokens (<code style="background:rgba(255,255,255,0.06); padding:1px 5px; border-radius:3px; font-family:var(--font-mono);">DESIGN.md</code>) เพื่อควบคุมสี ฟอนต์ และกฎเกณฑ์ Do's &amp; Don'ts อย่างเป็นระบบ
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
