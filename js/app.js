@@ -661,6 +661,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
+    // Interactive Cursor Follower Glow
+    // ==========================================================================
+    const cursorGlow = document.getElementById("cursor-glow");
+    if (cursorGlow) {
+        let mouseX = -500;
+        let mouseY = -500;
+        let currentX = -500;
+        let currentY = -500;
+
+        document.addEventListener("mousemove", (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        }, { passive: true });
+
+        function updateCursorGlow() {
+            // Smooth interpolation (lerp)
+            currentX += (mouseX - currentX) * 0.08;
+            currentY += (mouseY - currentY) * 0.08;
+
+            cursorGlow.style.left = `${currentX}px`;
+            cursorGlow.style.top = `${currentY}px`;
+
+            requestAnimationFrame(updateCursorGlow);
+        }
+        updateCursorGlow();
+    }
+
+    // ==========================================================================
     // Initial Load
     // ==========================================================================
     const initialHash = window.location.hash;
@@ -674,3 +702,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     loadSlide(0);
 });
+
