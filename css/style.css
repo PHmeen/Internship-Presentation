@@ -1257,8 +1257,15 @@ button {
         color: #f8fafc !important;
         overflow: visible !important;
         height: auto !important;
+    }
+
+    * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
+        animation: none !important;
+        animation-delay: 0s !important;
+        animation-duration: 0s !important;
+        transition: none !important;
     }
 
     .app-sidebar,
@@ -1290,11 +1297,9 @@ button {
     }
 
     .slide-page {
-        width: 100vw !important;
-        height: 100vh !important;
-        page-break-after: always !important;
-        break-after: page !important;
-        padding: 40px 60px !important;
+        width: 100% !important;
+        height: 100% !important;
+        padding: 30px 48px !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
@@ -1302,6 +1307,7 @@ button {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         overflow: hidden !important;
+        box-sizing: border-box !important;
     }
 
     .layout-split { flex-direction: row !important; }

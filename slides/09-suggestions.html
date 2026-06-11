@@ -2,7 +2,9 @@
 <div class="slide-page" style="padding: clamp(12px, 2.5vw, 28px); position: relative;">
 
     <!-- Background Ambient Glow -->
-    <div style="position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(0,163,255,0.04) 0%, transparent 65%); pointer-events:none; z-index:0;"></div>
+    <div
+        style="position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(0,163,255,0.04) 0%, transparent 65%); pointer-events:none; z-index:0;">
+    </div>
 
     <style>
         /* ---- Activity Grid ---- */
@@ -39,17 +41,17 @@
             flex-direction: column;
             border-radius: 14px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-            transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: zoom-in;
             position: relative;
         }
 
         .activity-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(0,163,255,0.3);
-            box-shadow: 0 20px 45px rgba(0,163,255,0.1);
+            border-color: rgba(0, 163, 255, 0.3);
+            box-shadow: 0 20px 45px rgba(0, 163, 255, 0.1);
         }
 
         /* ---- Photo frame ---- */
@@ -80,9 +82,9 @@
         /* ---- Caption bar ---- */
         .activity-caption {
             padding: clamp(10px, 1.6vw, 16px) clamp(12px, 2vw, 20px);
-            background: linear-gradient(135deg, rgba(13,20,38,0.97) 0%, rgba(8,12,24,0.99) 100%);
+            background: linear-gradient(135deg, rgba(13, 20, 38, 0.97) 0%, rgba(8, 12, 24, 0.99) 100%);
             flex-shrink: 0;
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .activity-badge {
@@ -107,13 +109,18 @@
 
         /* Smaller caption on tablet/mobile */
         @media (max-width: 900px) {
-            .activity-name { font-size: clamp(0.9rem, 2.5vw, 1.05rem); white-space: normal; }
+            .activity-name {
+                font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+                white-space: normal;
+            }
         }
     </style>
 
     <!-- ส่วนหัว -->
-    <div style="width:100%; max-width:1100px; text-align:left; margin-bottom:clamp(10px, 2vw, 20px); z-index:1; flex-shrink:0;">
-        <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--color-accent); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:4px; font-weight:600;">
+    <div
+        style="width:100%; max-width:1100px; text-align:left; margin-bottom:clamp(10px, 2vw, 20px); z-index:1; flex-shrink:0;">
+        <div
+            style="font-family:var(--font-mono); font-size:0.72rem; color:var(--color-accent); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:4px; font-weight:600;">
             Internship Activities &amp; Community Support
         </div>
         <h2 class="slide-title" style="margin-bottom:0;">ภาพกิจกรรม<span>ระหว่างฝึกงาน</span></h2>
@@ -126,7 +133,7 @@
         <div class="activity-card">
             <div class="activity-photo">
                 <img src="assets/activity/AIMEEN.jpg" alt="Al Skills Training"
-                     onerror="this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.background='radial-gradient(circle,#0e172a,#060b13)'; this.style.display='none';">
+                    onerror="this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.background='radial-gradient(circle,#0e172a,#060b13)'; this.style.display='none';">
             </div>
             <div class="activity-caption">
                 <div class="activity-badge">ACTIVITY 01</div>
@@ -138,7 +145,7 @@
         <div class="activity-card">
             <div class="activity-photo">
                 <img src="assets/activity/live.jpg" alt="ช้อปมันส์สนั่น LIVE"
-                     onerror="this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.background='radial-gradient(circle,#0e172a,#060b13)'; this.style.display='none';">
+                    onerror="this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.background='radial-gradient(circle,#0e172a,#060b13)'; this.style.display='none';">
             </div>
             <div class="activity-caption">
                 <div class="activity-badge">ACTIVITY 02</div>
@@ -150,7 +157,7 @@
         <div class="activity-card">
             <div class="activity-photo">
                 <img src="assets/activity/ASEAN.jpg" alt="PSU-AUN Summer Camp 2026"
-                     onerror="this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.background='radial-gradient(circle,#0e172a,#060b13)'; this.style.display='none';">
+                    onerror="this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.background='radial-gradient(circle,#0e172a,#060b13)'; this.style.display='none';">
             </div>
             <div class="activity-caption">
                 <div class="activity-badge">ACTIVITY 03</div>
@@ -162,11 +169,12 @@
         <div class="activity-card">
             <div class="activity-photo">
                 <img src="assets/activity/innovation.jpg" alt="STSP Innovation"
-                     onerror="this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.background='radial-gradient(circle,#0e172a,#060b13)'; this.style.display='none';">
+                    onerror="this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.background='radial-gradient(circle,#0e172a,#060b13)'; this.style.display='none';">
             </div>
             <div class="activity-caption">
                 <div class="activity-badge">ACTIVITY 04</div>
-                <div class="activity-name">STSP Innovation</div>
+                <div class="activity-name">South Innovation Brige
+                </div>
             </div>
         </div>
 
