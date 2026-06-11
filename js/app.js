@@ -132,11 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 slideWrapper.classList.add("active");
 
-                // Run special animations for challenges slide on initial load if needed
-                if (currentSlide === 6) {
-                    setupTerminalSimulation();
-                }
-
                 prevBtn.disabled = false;
                 nextBtn.disabled = false;
             } catch (error) {
@@ -178,11 +173,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     setTimeout(() => {
                         slideWrapper.classList.add("active");
-
-                        // Run special animations for challenges slide
-                        if (currentSlide === 6) {
-                            setupTerminalSimulation();
-                        }
 
                         // Trigger confetti if last slide is loaded
                         if (currentSlide === slides.length - 1) {
