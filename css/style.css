@@ -399,9 +399,12 @@ button {
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
-    transition: var(--transition-smooth);
+    transition: opacity 0.12s ease-in,
+                transform 0.12s ease-in,
+                filter 0.12s ease-in;
     opacity: 0;
-    transform: scale(0.985) translateY(8px);
+    transform: scale(0.992) translateY(4px);
+    filter: blur(3px);
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
 }
@@ -409,14 +412,88 @@ button {
 .slide-content-wrapper::-webkit-scrollbar { display: none; }
 
 .slide-content-wrapper.active {
+    transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+                filter 0.35s cubic-bezier(0.25, 1, 0.5, 1);
     opacity: 1;
     transform: scale(1) translateY(0);
+    filter: blur(0);
 }
 
 .slide-page {
     min-height: 100%;
     display: flex;
     flex-direction: column;
+}
+
+/* Sound Toggle Button */
+.sound-toggle-btn {
+    background-color: rgba(6, 11, 22, 0.5);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    padding: 0;
+    min-height: unset;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    -webkit-tap-highlight-color: transparent;
+    flex-shrink: 0;
+}
+
+.sound-toggle-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    box-shadow: 0 0 10px var(--color-accent-dim);
+    transform: scale(1.05);
+}
+
+.sound-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+/* Active Theme Dot Glow Pulse */
+.color-dot.active {
+    border-color: #fff;
+    transform: scale(1.25);
+    box-shadow: 0 0 12px var(--color-accent);
+    animation: activeDotPulse 2s infinite ease-in-out;
+}
+
+@keyframes activeDotPulse {
+    0%, 100% { box-shadow: 0 0 8px var(--color-accent); }
+    50% { box-shadow: 0 0 18px var(--color-accent), 0 0 24px var(--color-accent-dim); }
+}
+
+/* 3D Tilt Card Shine Effect Overlay */
+.content-card, .challenge-card, .metric-card, .activity-card {
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.card-shine {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+    background: radial-gradient(circle 150px at var(--shine-x, 0) var(--shine-y, 0), rgba(255, 255, 255, 0.08) 0%, transparent 80%);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.content-card:hover .card-shine,
+.challenge-card:hover .card-shine,
+.metric-card:hover .card-shine,
+.activity-card:hover .card-shine {
+    opacity: 1;
 }
 
 /* ===== Typography ===== */

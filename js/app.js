@@ -89,12 +89,21 @@ document.addEventListener("DOMContentLoaded", () => {
     async function loadSlide(index) {
         if (index < 0 || index >= slides.length) return;
 
+        // Play click sound effect
+        playClickSound();
+
+        // Reset any active tilted cards to base transforms before transition to avoid animation conflicts
+        const tiltedCards = slideWrapper.querySelectorAll(".content-card, .challenge-card, .metric-card, .activity-card");
+        tiltedCards.forEach(card => {
+            card.style.transform = "";
+        });
+
         prevBtn.disabled = true;
         nextBtn.disabled = true;
 
-        slideWrapper.classList.remove("active");
+        const isInitialLoad = slideWrapper.innerHTML.trim() === "";
 
-        setTimeout(async () => {
+        if (isInitialLoad) {
             try {
                 const response = await fetch(slides[index]);
                 if (!response.ok) throw new Error(`ไม่สามารถโหลดสไลด์: ${slides[index]}`);
@@ -109,19 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const progressPercentage = (currentSlide / (slides.length - 1)) * 100;
                 progressBar.style.width = `${progressPercentage}%`;
 
-                // Map slide to sidebar item
                 const slideToSidebarMap = {
-                    0: 0,  // Cover
-                    1: 1,  // About Company
-                    2: 2,  // Scope
-                    3: 3,  // Responsibilities P1
-                    4: 3,  // Responsibilities P2
-                    5: 3,  // Gallery
-                    6: 4,  // Challenges
-                    7: 5,  // Learnings
-                    8: 5,  // Tech Stack
-                    9: 6,  // Suggestions
-                    10: 7  // Conclusion
+                    0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 3, 6: 4, 7: 5, 8: 5, 9: 6, 10: 7
                 };
 
                 sidebarListItems.forEach((li) => li.classList.remove("active"));
@@ -132,19 +130,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 window.location.hash = `/${currentSlide + 1}`;
 
-                setTimeout(() => {
-                    slideWrapper.classList.add("active");
+                slideWrapper.classList.add("active");
 
-                    // Run special animations for challenges slide
-                    if (currentSlide === 6) {
-                        setupTerminalSimulation();
-                        setupDataFlowSimulation();
-                    }
+                // Run special animations for challenges slide on initial load if needed
+                if (currentSlide === 6) {
+                    setupTerminalSimulation();
+                }
 
-                    prevBtn.disabled = false;
-                    nextBtn.disabled = false;
-                }, 50);
-
+                prevBtn.disabled = false;
+                nextBtn.disabled = false;
             } catch (error) {
                 console.error(error);
                 slideWrapper.innerHTML = `<div class="content-card"><h3>เกิดข้อผิดพลาดในการโหลด</h3><p>${error.message}</p></div>`;
@@ -152,7 +146,64 @@ document.addEventListener("DOMContentLoaded", () => {
                 prevBtn.disabled = false;
                 nextBtn.disabled = false;
             }
-        }, 200);
+        } else {
+            slideWrapper.classList.remove("active");
+
+            setTimeout(async () => {
+                try {
+                    const response = await fetch(slides[index]);
+                    if (!response.ok) throw new Error(`ไม่สามารถโหลดสไลด์: ${slides[index]}`);
+                    const html = await response.text();
+
+                    slideWrapper.innerHTML = html;
+                    currentSlide = index;
+
+                    currentSlideNum.textContent = String(currentSlide + 1).padStart(2, '0');
+                    currentSectionTitle.textContent = sectionTitles[currentSlide];
+
+                    const progressPercentage = (currentSlide / (slides.length - 1)) * 100;
+                    progressBar.style.width = `${progressPercentage}%`;
+
+                    const slideToSidebarMap = {
+                        0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 3, 6: 4, 7: 5, 8: 5, 9: 6, 10: 7
+                    };
+
+                    sidebarListItems.forEach((li) => li.classList.remove("active"));
+                    const sidebarIndex = slideToSidebarMap[currentSlide];
+                    if (sidebarListItems[sidebarIndex] !== undefined) {
+                        sidebarListItems[sidebarIndex].classList.add("active");
+                    }
+
+                    window.location.hash = `/${currentSlide + 1}`;
+
+                    setTimeout(() => {
+                        slideWrapper.classList.add("active");
+
+                        // Run special animations for challenges slide
+                        if (currentSlide === 6) {
+                            setupTerminalSimulation();
+                        }
+
+                        // Trigger confetti if last slide is loaded
+                        if (currentSlide === slides.length - 1) {
+                            initConfetti();
+                        } else {
+                            stopConfetti();
+                        }
+
+                        prevBtn.disabled = false;
+                        nextBtn.disabled = false;
+                    }, 50);
+
+                } catch (error) {
+                    console.error(error);
+                    slideWrapper.innerHTML = `<div class="content-card"><h3>เกิดข้อผิดพลาดในการโหลด</h3><p>${error.message}</p></div>`;
+                    slideWrapper.classList.add("active");
+                    prevBtn.disabled = false;
+                    nextBtn.disabled = false;
+                }
+            }, 120);
+        }
     }
 
     function nextSlide() {
@@ -424,6 +475,199 @@ document.addEventListener("DOMContentLoaded", () => {
                 closeLightbox();
             }
         });
+    }
+
+    // ==========================================================================
+    // Confetti System (Canvas Particles)
+    // ==========================================================================
+    const confettiCanvas = document.getElementById("confetti-canvas");
+    const confettiCtx = confettiCanvas ? confettiCanvas.getContext("2d") : null;
+    let confettiParticles = [];
+    let confettiAnimationId = null;
+
+    function resizeConfettiCanvas() {
+        if (confettiCanvas) {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+    }
+    window.addEventListener("resize", resizeConfettiCanvas);
+    resizeConfettiCanvas();
+
+    class Confetti {
+        constructor() {
+            this.x = Math.random() * confettiCanvas.width;
+            this.y = Math.random() * -confettiCanvas.height - 20;
+            this.size = Math.random() * 8 + 6;
+            this.color = ["#00a3ff", "#10b981", "#a855f7", "#f59e0b", "#ef4444", "#38bdf8"][Math.floor(Math.random() * 6)];
+            this.speedX = Math.random() * 4 - 2;
+            this.speedY = Math.random() * 5 + 4;
+            this.rotation = Math.random() * 360;
+            this.rotationSpeed = Math.random() * 4 - 2;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.rotation += this.rotationSpeed;
+            if (this.y > confettiCanvas.height) {
+                this.y = -20;
+                this.x = Math.random() * confettiCanvas.width;
+            }
+        }
+        draw() {
+            if (!confettiCtx) return;
+            confettiCtx.save();
+            confettiCtx.translate(this.x, this.y);
+            confettiCtx.rotate((this.rotation * Math.PI) / 180);
+            confettiCtx.fillStyle = this.color;
+            confettiCtx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+            confettiCtx.restore();
+        }
+    }
+
+    function initConfetti() {
+        confettiParticles = [];
+        for (let i = 0; i < 100; i++) {
+            confettiParticles.push(new Confetti());
+        }
+        if (!confettiAnimationId) {
+            animateConfetti();
+        }
+    }
+
+    function animateConfetti() {
+        if (!confettiCtx) return;
+        confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        confettiParticles.forEach((p) => {
+            p.update();
+            p.draw();
+        });
+        confettiAnimationId = requestAnimationFrame(animateConfetti);
+    }
+
+    function stopConfetti() {
+        if (confettiAnimationId) {
+            cancelAnimationFrame(confettiAnimationId);
+            confettiAnimationId = null;
+        }
+        if (confettiCtx && confettiCanvas) {
+            confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        }
+    }
+
+    // ==========================================================================
+    // Web Audio Sound Synthesizer (Mechanical Click)
+    // ==========================================================================
+    let soundEnabled = localStorage.getItem("soundEnabled") === "true";
+    const soundToggle = document.getElementById("sound-toggle");
+    const soundOnIcon = document.getElementById("sound-on-icon");
+    const soundOffIcon = document.getElementById("sound-off-icon");
+
+    function updateSoundUI() {
+        if (soundEnabled) {
+            if (soundOnIcon) soundOnIcon.style.display = "block";
+            if (soundOffIcon) soundOffIcon.style.display = "none";
+            if (soundToggle) soundToggle.classList.add("active");
+        } else {
+            if (soundOnIcon) soundOnIcon.style.display = "none";
+            if (soundOffIcon) soundOffIcon.style.display = "block";
+            if (soundToggle) soundToggle.classList.remove("active");
+        }
+    }
+
+    if (soundToggle) {
+        soundToggle.addEventListener("click", () => {
+            soundEnabled = !soundEnabled;
+            localStorage.setItem("soundEnabled", soundEnabled);
+            updateSoundUI();
+            if (soundEnabled) playClickSound();
+        });
+    }
+    updateSoundUI();
+
+    function playClickSound() {
+        if (!soundEnabled) return;
+        try {
+            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            const ctx = new AudioContextClass();
+            
+            // Synthetic crisp click
+            const osc = ctx.createOscillator();
+            const gainNode = ctx.createGain();
+            
+            osc.type = "sine";
+            osc.frequency.setValueAtTime(1500, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(180, ctx.currentTime + 0.08);
+            
+            gainNode.gain.setValueAtTime(0.04, ctx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+            
+            osc.connect(gainNode);
+            gainNode.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.07);
+            
+            // Resonance
+            const oscRes = ctx.createOscillator();
+            const gainRes = ctx.createGain();
+            oscRes.type = "triangle";
+            oscRes.frequency.setValueAtTime(200, ctx.currentTime);
+            oscRes.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.08);
+            gainRes.gain.setValueAtTime(0.03, ctx.currentTime);
+            gainRes.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.07);
+            
+            oscRes.connect(gainRes);
+            gainRes.connect(ctx.destination);
+            oscRes.start();
+            oscRes.stop(ctx.currentTime + 0.08);
+        } catch (e) {
+            console.warn("AudioContext init error", e);
+        }
+    }
+
+    // ==========================================================================
+    // 3D Tilt Card and Gloss Shine Effect
+    // ==========================================================================
+    if (slideWrapper) {
+        slideWrapper.addEventListener("mouseenter", (e) => {
+            const card = e.target.closest(".content-card, .challenge-card, .metric-card, .activity-card");
+            if (card && !card.querySelector(".card-shine")) {
+                const shine = document.createElement("div");
+                shine.className = "card-shine";
+                card.appendChild(shine);
+            }
+        }, true);
+
+        slideWrapper.addEventListener("mousemove", (e) => {
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+            if (window.innerWidth < 768) return;
+            // Only tilt cards if the slide transition is fully complete and active
+            if (!slideWrapper.classList.contains("active")) return;
+
+            const card = e.target.closest(".content-card, .challenge-card, .metric-card, .activity-card");
+            if (!card) return;
+
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            card.style.setProperty("--shine-x", `${x}px`);
+            card.style.setProperty("--shine-y", `${y}px`);
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((centerY - y) / centerY) * 4;
+            const rotateY = ((x - centerX) / centerX) * 4;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.015)`;
+        });
+
+        slideWrapper.addEventListener("mouseleave", (e) => {
+            const card = e.target.closest(".content-card, .challenge-card, .metric-card, .activity-card");
+            if (card) {
+                card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
+            }
+        }, true);
     }
 
     // ==========================================================================
