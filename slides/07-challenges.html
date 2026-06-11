@@ -13,29 +13,27 @@
     <!-- Styles for Challenges Section -->
     <style>
         .challenges-container {
-            display: flex;
-            flex-direction: column;
-            gap: clamp(12px, 2.5vw, 20px);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(14px, 1.8vw, 24px);
             width: 100%;
-            max-width: 1050px;
+            max-width: 1150px;
             margin: 0 auto;
             z-index: 1;
-            padding-bottom: 10px;
         }
 
-        .challenge-row {
+        .challenge-col {
             display: flex;
-            align-items: center;
-            width: 100%;
+            flex-direction: column;
+            justify-content: flex-start;
+            height: 100%;
         }
 
         .challenge-card {
-            flex: 1;
-            min-width: 0;
-            background: linear-gradient(135deg, rgba(13, 20, 38, 0.6) 0%, rgba(8, 12, 24, 0.7) 100%);
+            background: linear-gradient(135deg, rgba(13, 20, 38, 0.65) 0%, rgba(8, 12, 24, 0.75) 100%);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 14px;
-            padding: clamp(14px, 2.5vw, 24px) clamp(16px, 3vw, 28px);
+            border-radius: 12px;
+            padding: clamp(12px, 1.8vw, 20px);
             position: relative;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -54,7 +52,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            border-radius: 14px 14px 0 0;
+            border-radius: 12px 12px 0 0;
         }
 
         .challenge-card.prob-card::before {
@@ -66,8 +64,8 @@
         }
 
         .challenge-icon-box {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -75,311 +73,254 @@
             flex-shrink: 0;
         }
 
-        .challenge-connector-h {
+        .challenge-connector {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            flex-shrink: 0;
-        }
-
-        .challenge-connector-v {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            height: 35px;
+            height: clamp(20px, 3.5vh, 32px);
             width: 100%;
         }
 
-        @media (max-width: 850px) {
-            .challenge-row {
-                flex-direction: column;
-                align-items: stretch;
+        @media (max-width: 900px) {
+            .challenges-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding-bottom: 20px;
             }
-
-            .challenge-connector-h {
-                display: none;
-            }
-
-            .challenge-connector-v {
-                display: flex;
+            .challenge-connector {
+                height: 25px;
             }
         }
 
         @media (max-width: 520px) {
             .challenge-card h3 {
-                font-size: 0.95rem !important;
+                font-size: 0.9rem !important;
             }
 
             .challenge-card p {
-                font-size: 0.78rem !important;
+                font-size: 0.76rem !important;
             }
         }
     </style>
 
     <!-- ส่วนหัว (Header) -->
-    <div style="text-align: center; margin-bottom: clamp(14px, 3vw, 30px); flex-shrink: 0; z-index: 1;">
+    <div style="text-align: center; margin-bottom: clamp(10px, 2.5vh, 24px); flex-shrink: 0; z-index: 1;">
         <div
-            style="font-family: var(--font-mono); font-size: clamp(0.65rem, 1.4vw, 0.85rem); color: var(--color-accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; font-weight: 600;">
+            style="font-family: var(--font-mono); font-size: clamp(0.65rem, 1.4vw, 0.85rem); color: var(--color-accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px; font-weight: 600;">
             Challenges &amp; Solutions
         </div>
-        <h2 class="slide-title" style="margin-bottom: 4px; justify-content: center;">
+        <h2 class="slide-title" style="margin-bottom: 2px; justify-content: center;">
             ปัญหาและอุปสรรค<span>ระหว่างฝึกงาน</span></h2>
     </div>
 
     <!-- ส่วนเนื้อหาหลัก (Responsive Animated Pipeline Layout) -->
     <div class="challenges-container">
 
-        <!-- ================= Challenge 01 ================= -->
-        <div class="challenge-row">
+        <!-- ================= Column 01 ================= -->
+        <div class="challenge-col">
             <!-- Problem 01 -->
             <div class="challenge-card prob-card" style="--card-accent: #ef4444;">
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
                     <div class="challenge-icon-box"
                         style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                         </svg>
                     </div>
                     <span
-                        style="font-family: var(--font-mono); font-size: 0.75rem; color: #ef4444; letter-spacing: 0.1em; font-weight: 600;">PROBLEM
+                        style="font-family: var(--font-mono); font-size: 0.7rem; color: #ef4444; letter-spacing: 0.1em; font-weight: 600;">PROBLEM
                         01</span>
                 </div>
                 <h3
-                    style="font-size: clamp(0.9rem, 1.8vw, 1.15rem); color: white; margin-bottom: 6px; font-weight: 600;">
-                    ยังไม่คุ้นเคยกับโปรแกรมและระบบงาน</h3>
+                    style="font-size: clamp(0.85rem, 1.6vw, 1.05rem); color: white; margin-bottom: 4px; font-weight: 600;">
+                    ยังไม่คุ้นเคยกับระบบงาน</h3>
                 <p
-                    style="font-size: clamp(0.76rem, 1.5vw, 0.9rem); color: var(--color-text-muted); line-height: 1.5; margin: 0;">
-                    • <strong>ปัญหา:</strong> ช่วงแรกยังไม่คุ้นชินกับเครื่องมือพัฒนาทำให้เริ่มงานได้ช้ากว่าที่คิดไว้<br>
-                    • <strong>แก้ไข:</strong> หาความรู้เพิ่มเติมออนไลน์ เรียนรู้วิธีส่งงาน
-                    และหัดจำลองการเชื่อมต่อจนมั่นใจ
+                    style="font-size: clamp(0.72rem, 1.4vw, 0.82rem); color: var(--color-text-muted); line-height: 1.45; margin: 0;">
+                    • <strong>ปัญหา:</strong> ช่วงแรกไม่คุ้นชินเครื่องมือและ Git ทำให้เริ่มงานได้ช้ากว่าแผน
                 </p>
             </div>
 
-            <!-- Connector 01 (Horizontal) -->
-            <div class="challenge-connector-h">
-                <svg width="50" height="40" viewBox="0 0 50 40" style="overflow: visible;">
+            <!-- Connector 01 -->
+            <div class="challenge-connector">
+                <svg width="40" height="30" viewBox="0 0 40 30" style="overflow: visible;">
                     <defs>
                         <filter id="glow-c1" x="-30%" y="-30%" width="160%" height="160%">
                             <feGaussianBlur stdDeviation="2" result="blur" />
                             <feComposite in="SourceGraphic" in2="blur" operator="over" />
                         </filter>
                     </defs>
-                    <path d="M 0 20 L 50 20" stroke="rgba(255,255,255,0.06)" stroke-width="2" stroke-dasharray="4 4"
+                    <path d="M 20 0 L 20 30" stroke="rgba(255,255,255,0.06)" stroke-width="2" stroke-dasharray="4 4"
                         fill="none" />
-                    <path d="M 0 20 L 50 20" stroke="#10b981" stroke-width="1.5" fill="none" opacity="0.2" />
+                    <path d="M 20 0 L 20 30" stroke="#10b981" stroke-width="1.5" fill="none" opacity="0.2" />
                     <circle r="3" fill="#10b981" filter="url(#glow-c1)">
-                        <animateMotion dur="2s" repeatCount="indefinite" path="M 0 20 L 50 20" />
-                    </circle>
-                </svg>
-            </div>
-
-            <!-- Connector 01 (Vertical) -->
-            <div class="challenge-connector-v">
-                <svg width="40" height="35" viewBox="0 0 40 35" style="overflow: visible;">
-                    <path d="M 20 0 L 20 35" stroke="rgba(255,255,255,0.06)" stroke-width="2" stroke-dasharray="4 4"
-                        fill="none" />
-                    <path d="M 20 0 L 20 35" stroke="#10b981" stroke-width="1.5" fill="none" opacity="0.2" />
-                    <circle r="3" fill="#10b981" filter="url(#glow-c1)">
-                        <animateMotion dur="2s" repeatCount="indefinite" path="M 20 0 L 20 35" />
+                        <animateMotion dur="2s" repeatCount="indefinite" path="M 20 0 L 20 30" />
                     </circle>
                 </svg>
             </div>
 
             <!-- Resolution 01 -->
             <div class="challenge-card res-card" style="--card-accent: #10b981;">
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
                     <div class="challenge-icon-box"
                         style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: #10b981;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
                     <span
-                        style="font-family: var(--font-mono); font-size: 0.75rem; color: #10b981; letter-spacing: 0.1em; font-weight: 600;">RESOLUTION
+                        style="font-family: var(--font-mono); font-size: 0.7rem; color: #10b981; letter-spacing: 0.1em; font-weight: 600;">RESOLUTION
                         01</span>
                 </div>
                 <h3
-                    style="font-size: clamp(0.9rem, 1.8vw, 1.15rem); color: white; margin-bottom: 6px; font-weight: 600;">
-                    ศึกษาเพิ่มเติมและฝึกฝนใช้งานจริง</h3>
+                    style="font-size: clamp(0.85rem, 1.6vw, 1.05rem); color: white; margin-bottom: 4px; font-weight: 600;">
+                    ศึกษาเพิ่มและลุยฝึกจริง</h3>
                 <p
-                    style="font-size: clamp(0.76rem, 1.5vw, 0.9rem); color: var(--color-text-muted); line-height: 1.5; margin: 0;">
-                    • <strong>วิธีทำ:</strong> ค้นคว้าจากเน็ตเพิ่มเติม
-                    หัดใช้เครื่องมือใหม่ๆ<br>
-                    • <strong>ผลลัพธ์:</strong> ทำงานร่วมกับคนอื่นได้คล่องตัวและเริ่มต้นทำส่วนอื่นได้รวดเร็วขึ้น
+                    style="font-size: clamp(0.72rem, 1.4vw, 0.82rem); color: var(--color-text-muted); line-height: 1.45; margin: 0;">
+                    • <strong>วิธีแก้:</strong> ติวออนไลน์เพิ่มเติม หัดใช้เครื่องมือ และทำระบบจำลองทดลองเล่น<br>
+                    • <strong>ผลลัพธ์:</strong> ทำงานทีมได้ไวขึ้น มั่นใจขึ้น
                 </p>
             </div>
         </div>
 
-        <!-- ================= Challenge 02 ================= -->
-        <div class="challenge-row">
+        <!-- ================= Column 02 ================= -->
+        <div class="challenge-col">
             <!-- Problem 02 -->
             <div class="challenge-card prob-card" style="--card-accent: #f59e0b;">
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
                     <div class="challenge-icon-box"
                         style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); color: #f59e0b;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                         </svg>
                     </div>
                     <span
-                        style="font-family: var(--font-mono); font-size: 0.75rem; color: #f59e0b; letter-spacing: 0.1em; font-weight: 600;">PROBLEM
+                        style="font-family: var(--font-mono); font-size: 0.7rem; color: #f59e0b; letter-spacing: 0.1em; font-weight: 600;">PROBLEM
                         02</span>
                 </div>
                 <h3
-                    style="font-size: clamp(0.9rem, 1.8vw, 1.15rem); color: white; margin-bottom: 6px; font-weight: 600;">
-                    ระบบซับซ้อนและพันกันยุ่งเหยิง</h3>
+                    style="font-size: clamp(0.85rem, 1.6vw, 1.05rem); color: white; margin-bottom: 4px; font-weight: 600;">
+                    ระบบเริ่มซับซ้อนและพันกัน</h3>
                 <p
-                    style="font-size: clamp(0.76rem, 1.5vw, 0.9rem); color: var(--color-text-muted); line-height: 1.5; margin: 0;">
-                    • <strong>ปัญหา:</strong> พองานใหญ่ขึ้น การเชื่อมประสานหน้าเว็บ คิดราคา คลังสินค้า
-                    และหลังบ้านทับซ้อนกัน<br>
-                    • <strong>ความเสี่ยง:</strong> ส่งข้อมูลผิดพลาดหรือประมวลผลเพี้ยนระหว่างเชื่อมต่อข้อมูล
+                    style="font-size: clamp(0.72rem, 1.4vw, 0.82rem); color: var(--color-text-muted); line-height: 1.45; margin: 0;">
+                    • <strong>ปัญหา:</strong> ข้อมูลหน้าเว็บ คลังสินค้า และหลังบ้านซ้อนกันจนเสี่ยงคำนวณราคาผิด
                 </p>
             </div>
 
-            <!-- Connector 02 (Horizontal) -->
-            <div class="challenge-connector-h">
-                <svg width="50" height="40" viewBox="0 0 50 40" style="overflow: visible;">
+            <!-- Connector 02 -->
+            <div class="challenge-connector">
+                <svg width="40" height="30" viewBox="0 0 40 30" style="overflow: visible;">
                     <defs>
                         <filter id="glow-c2" x="-30%" y="-30%" width="160%" height="160%">
                             <feGaussianBlur stdDeviation="2" result="blur" />
                             <feComposite in="SourceGraphic" in2="blur" operator="over" />
                         </filter>
                     </defs>
-                    <path d="M 0 20 L 50 20" stroke="rgba(255,255,255,0.06)" stroke-width="2" stroke-dasharray="4 4"
+                    <path d="M 20 0 L 20 30" stroke="rgba(255,255,255,0.06)" stroke-width="2" stroke-dasharray="4 4"
                         fill="none" />
-                    <path d="M 0 20 L 50 20" stroke="#00a3ff" stroke-width="1.5" fill="none" opacity="0.2" />
+                    <path d="M 20 0 L 20 30" stroke="#00a3ff" stroke-width="1.5" fill="none" opacity="0.2" />
                     <circle r="3" fill="#00a3ff" filter="url(#glow-c2)">
-                        <animateMotion dur="2s" repeatCount="indefinite" path="M 0 20 L 50 20" />
-                    </circle>
-                </svg>
-            </div>
-
-            <!-- Connector 02 (Vertical) -->
-            <div class="challenge-connector-v">
-                <svg width="40" height="35" viewBox="0 0 40 35" style="overflow: visible;">
-                    <path d="M 20 0 L 20 35" stroke="rgba(255,255,255,0.06)" stroke-width="2" stroke-dasharray="4 4"
-                        fill="none" />
-                    <path d="M 20 0 L 20 35" stroke="#00a3ff" stroke-width="1.5" fill="none" opacity="0.2" />
-                    <circle r="3" fill="#00a3ff" filter="url(#glow-c2)">
-                        <animateMotion dur="2s" repeatCount="indefinite" path="M 20 0 L 20 35" />
+                        <animateMotion dur="2s" repeatCount="indefinite" path="M 20 0 L 20 30" />
                     </circle>
                 </svg>
             </div>
 
             <!-- Resolution 02 -->
             <div class="challenge-card res-card" style="--card-accent: #00a3ff;">
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
                     <div class="challenge-icon-box"
                         style="background: rgba(0, 163, 255, 0.1); border: 1px solid rgba(0, 163, 255, 0.2); color: #00a3ff;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                         </svg>
                     </div>
                     <span
-                        style="font-family: var(--font-mono); font-size: 0.75rem; color: #00a3ff; letter-spacing: 0.1em; font-weight: 600;">RESOLUTION
+                        style="font-family: var(--font-mono); font-size: 0.7rem; color: #00a3ff; letter-spacing: 0.1em; font-weight: 600;">RESOLUTION
                         02</span>
                 </div>
                 <h3
-                    style="font-size: clamp(0.9rem, 1.8vw, 1.15rem); color: white; margin-bottom: 6px; font-weight: 600;">
-                    แบ่งโครงสร้างงานออกเป็นส่วนย่อย</h3>
+                    style="font-size: clamp(0.85rem, 1.6vw, 1.05rem); color: white; margin-bottom: 4px; font-weight: 600;">
+                    แบ่งโครงสร้างเป็นส่วนย่อย</h3>
                 <p
-                    style="font-size: clamp(0.76rem, 1.5vw, 0.9rem); color: var(--color-text-muted); line-height: 1.5; margin: 0;">
-                    • <strong>วิธีแก้:</strong> แยกโฟลเดอร์และหน้าที่ของโค้ดแต่ละส่วนให้ชัดเจน ไม่ปนกัน
-                    และเขียนอธิบายเป็นลำดับไว้<br>
-                    • <strong>ผลลัพธ์:</strong> ควบคุมดูแลระบบได้ง่าย ไล่จุดผิดปกติง่าย และใส่ลูกเล่นใหม่ๆ ได้ทันที
+                    style="font-size: clamp(0.72rem, 1.4vw, 0.82rem); color: var(--color-text-muted); line-height: 1.45; margin: 0;">
+                    • <strong>วิธีแก้:</strong> แยกโฟลเดอร์เก็บโค้ดให้เป็นสัดส่วน และจดอธิบายอ้างอิง<br>
+                    • <strong>ผลลัพธ์:</strong> ไล่บั๊กง่าย ต่อเติมระบบใหม่ได้รวดเร็ว
                 </p>
             </div>
         </div>
 
-        <!-- ================= Challenge 03 ================= -->
-        <div class="challenge-row">
+        <!-- ================= Column 03 ================= -->
+        <div class="challenge-col">
             <!-- Problem 03 -->
             <div class="challenge-card prob-card" style="--card-accent: #ec4899;">
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
                     <div class="challenge-icon-box"
                         style="background: rgba(236, 72, 153, 0.1); border: 1px solid rgba(236, 72, 153, 0.2); color: #ec4899;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
                     <span
-                        style="font-family: var(--font-mono); font-size: 0.75rem; color: #ec4899; letter-spacing: 0.1em; font-weight: 600;">PROBLEM
+                        style="font-family: var(--font-mono); font-size: 0.7rem; color: #ec4899; letter-spacing: 0.1em; font-weight: 600;">PROBLEM
                         03</span>
                 </div>
                 <h3
-                    style="font-size: clamp(0.9rem, 1.8vw, 1.15rem); color: white; margin-bottom: 6px; font-weight: 600;">
-                    หาจุดผิดพลาดของโค้ดใช้เวลานาน</h3>
+                    style="font-size: clamp(0.85rem, 1.6vw, 1.05rem); color: white; margin-bottom: 4px; font-weight: 600;">
+                    หาบั๊กและแก้โค้ดได้ช้า</h3>
                 <p
-                    style="font-size: clamp(0.76rem, 1.5vw, 0.9rem); color: var(--color-text-muted); line-height: 1.5; margin: 0;">
-                    • <strong>ปัญหา:</strong> เวลาเกิดข้อผิดพลาดแปลกๆ หรือปัญหาจากเครื่องของยูสเซอร์
-                    ค้นหาสาเหตุด้วยตัวเองยาก<br>
-                    • <strong>ผลกระทบ:</strong> ทำให้แก้ไขปัญหาระบบได้ล่าช้าและงานสะดุด
+                    style="font-size: clamp(0.72rem, 1.4vw, 0.82rem); color: var(--color-text-muted); line-height: 1.45; margin: 0;">
+                    • <strong>ปัญหา:</strong> เกิดบั๊กจากสภาพเครื่องยูสเซอร์ที่ต่างกัน ทำให้อ่านโค้ดธรรมดาหาไม่เจอ
                 </p>
             </div>
 
-            <!-- Connector 03 (Horizontal) -->
-            <div class="challenge-connector-h">
-                <svg width="50" height="40" viewBox="0 0 50 40" style="overflow: visible;">
+            <!-- Connector 03 -->
+            <div class="challenge-connector">
+                <svg width="40" height="30" viewBox="0 0 40 30" style="overflow: visible;">
                     <defs>
                         <filter id="glow-c3" x="-30%" y="-30%" width="160%" height="160%">
                             <feGaussianBlur stdDeviation="2" result="blur" />
                             <feComposite in="SourceGraphic" in2="blur" operator="over" />
                         </filter>
                     </defs>
-                    <path d="M 0 20 L 50 20" stroke="rgba(255,255,255,0.06)" stroke-width="2" stroke-dasharray="4 4"
+                    <path d="M 20 0 L 20 30" stroke="rgba(255,255,255,0.06)" stroke-width="2" stroke-dasharray="4 4"
                         fill="none" />
-                    <path d="M 0 20 L 50 20" stroke="#8b5cf6" stroke-width="1.5" fill="none" opacity="0.2" />
+                    <path d="M 20 0 L 20 30" stroke="#8b5cf6" stroke-width="1.5" fill="none" opacity="0.2" />
                     <circle r="3" fill="#8b5cf6" filter="url(#glow-c3)">
-                        <animateMotion dur="2s" repeatCount="indefinite" path="M 0 20 L 50 20" />
-                    </circle>
-                </svg>
-            </div>
-
-            <!-- Connector 03 (Vertical) -->
-            <div class="challenge-connector-v">
-                <svg width="40" height="35" viewBox="0 0 40 35" style="overflow: visible;">
-                    <path d="M 20 0 L 20 35" stroke="rgba(255,255,255,0.06)" stroke-width="2" stroke-dasharray="4 4"
-                        fill="none" />
-                    <path d="M 20 0 L 20 35" stroke="#8b5cf6" stroke-width="1.5" fill="none" opacity="0.2" />
-                    <circle r="3" fill="#8b5cf6" filter="url(#glow-c3)">
-                        <animateMotion dur="2s" repeatCount="indefinite" path="M 20 0 L 20 35" />
+                        <animateMotion dur="2s" repeatCount="indefinite" path="M 20 0 L 20 30" />
                     </circle>
                 </svg>
             </div>
 
             <!-- Resolution 03 -->
             <div class="challenge-card res-card" style="--card-accent: #8b5cf6;">
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
                     <div class="challenge-icon-box"
                         style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); color: #8b5cf6;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
                     <span
-                        style="font-family: var(--font-mono); font-size: 0.75rem; color: #8b5cf6; letter-spacing: 0.1em; font-weight: 600;">RESOLUTION
+                        style="font-family: var(--font-mono); font-size: 0.7rem; color: #8b5cf6; letter-spacing: 0.1em; font-weight: 600;">RESOLUTION
                         03</span>
                 </div>
                 <h3
-                    style="font-size: clamp(0.9rem, 1.8vw, 1.15rem); color: white; margin-bottom: 6px; font-weight: 600;">
-                    ใช้เครื่องมือตรวจและให้ AI ช่วยวิเคราะห์</h3>
+                    style="font-size: clamp(0.85rem, 1.6vw, 1.05rem); color: white; margin-bottom: 4px; font-weight: 600;">
+                    ใช้ Debugger และพึ่ง AI</h3>
                 <p
-                    style="font-size: clamp(0.76rem, 1.5vw, 0.9rem); color: var(--color-text-muted); line-height: 1.5; margin: 0;">
-                    • <strong>วิธีแก้:</strong> ใช้โปรแกรมดีบักเกอร์ตรวจเช็คประวัติข้อผิดพลาด ร่วมกับใช้ระบบ AI
-                    ช่วยหาแนวทางแก้ไข<br>
-                    • <strong>ผลลัพธ์:</strong> ช่วยวิเคราะห์สาเหตุและชี้จุดแก้ไขได้ตรงประเด็น รวดเร็วขึ้นกว่าเดิมมาก
+                    style="font-size: clamp(0.72rem, 1.4vw, 0.82rem); color: var(--color-text-muted); line-height: 1.45; margin: 0;">
+                    • <strong>วิธีแก้:</strong> แกะรอยผ่าน Log เบราว์เซอร์ และให้ AI Co-Pilot ช่วยหาทางแก้<br>
+                    • <strong>ผลลัพธ์:</strong> ชี้เป้าและแก้บั๊กได้ตรงจุด รวดเร็วขึ้นมาก
                 </p>
             </div>
         </div>
